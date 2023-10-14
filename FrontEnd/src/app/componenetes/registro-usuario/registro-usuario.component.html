@@ -95,10 +95,12 @@
         <br/>
 
         <div class="form-group row">
+            <div class="col-4 col-md-2">
+                <button class="btn btn-primary" [routerLink]="['/home']" href="#">Atras</button>
+            </div>
             <div class="col-4 col-md-4 btn-siguiente">
                 <button [disabled]="!captchaResolved" type="submit" class="btn btn-primary">Siguiente</button>
             </div>
-
         </div>
 
     </form>
