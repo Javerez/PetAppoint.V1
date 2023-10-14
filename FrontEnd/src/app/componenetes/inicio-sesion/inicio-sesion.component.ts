@@ -31,7 +31,7 @@ export class InicioSesionComponent {
         Validators.required,
         Validators.email
       ])],
-      contrasenya: ['', Validators.compose([
+      password: ['', Validators.compose([
         Validators.required,
         Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)
       ])],

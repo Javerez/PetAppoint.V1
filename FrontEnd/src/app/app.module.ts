@@ -7,10 +7,12 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+//paginas
 import { InicioSesionComponent } from './componenetes/inicio-sesion/inicio-sesion.component';
 import { CalendarioComponent } from './componenetes/calendario/calendario.component';
 import { ConsultasComponent } from './componenetes/consultas/consultas.component';
 import { RegistroUsuarioComponent } from './componenetes/registro-usuario/registro-usuario.component';
+import { HomeComponent } from './componenetes/home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { RegistroUsuarioComponent } from './componenetes/registro-usuario/regist
     InicioSesionComponent,
     CalendarioComponent,
     ConsultasComponent,
-    RegistroUsuarioComponent
+    RegistroUsuarioComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
