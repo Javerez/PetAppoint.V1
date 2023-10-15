@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { FullCalendarModule} from '@fullcalendar/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +30,8 @@ import { HomeComponent } from './componenetes/home/home.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxCaptchaModule 
+    NgxCaptchaModule,
+    FullCalendarModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
