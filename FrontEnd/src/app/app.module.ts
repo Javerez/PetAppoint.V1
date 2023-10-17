@@ -14,6 +14,7 @@ import { CalendarioComponent } from './componenetes/calendario/calendario.compon
 import { ConsultasComponent } from './componenetes/consultas/consultas.component';
 import { RegistroUsuarioComponent } from './componenetes/registro-usuario/registro-usuario.component';
 import { HomeComponent } from './componenetes/home/home.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HomeComponent } from './componenetes/home/home.component';
     ReactiveFormsModule,
     FormsModule,
     NgxCaptchaModule,
-    FullCalendarModule 
+    FullCalendarModule,
+    NgbModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

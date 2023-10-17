@@ -1,4 +1,5 @@
-import { Component, signal, ChangeDetectorRef } from '@angular/core';
+import { Component, signal, ChangeDetectorRef,ElementRef,ViewChild} from '@angular/core';
+
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -6,12 +7,20 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
+
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
   styleUrls: ['./calendario.component.scss']
 })
 export class CalendarioComponent {
+
+  title = 'appBootstrap';
+  closeResult: string = '';
+  @ViewChild('mymodal') mymodal: ElementRef | undefined;
+
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
@@ -30,7 +39,7 @@ export class CalendarioComponent {
     weekends: true,
     editable: true,
     selectable: true,
-    selectMirror: true,
+    selectMirror: false,
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
@@ -43,7 +52,35 @@ export class CalendarioComponent {
   });
   currentEvents = signal<EventApi[]>([]);
 
-  constructor(private changeDetector: ChangeDetectorRef) {
+  constructor(private changeDetector: ChangeDetectorRef, private modalService:NgbModal) {
+  }
+  open(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+  }
+
+  
+
+  private getDismissReason(reason: any): string {
+
+    if (reason === ModalDismissReasons.ESC) {
+
+      return 'by pressing ESC';
+
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+
+      return 'by clicking on a backdrop';
+
+    } else {
+
+      return  `with: ${reason}`;
+
+    }
+
   }
 
   handleWeekendsToggle() {
@@ -54,26 +91,33 @@ export class CalendarioComponent {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');
-    
+    this.open(this.mymodal);
+
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
-
+    
     if (title) {
       calendarApi.addEvent({
         id: createEventId(),
         title,
+        color:'#0f0f0f',
         start: selectInfo.startStr,
         end: selectInfo.endStr,
-        allDay: selectInfo.allDay
+        allDay: selectInfo.allDay,
+        extendedProps: {
+          description: 'waos'
+        }
+        
       });
     }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    console.log(clickInfo.event.extendedProps['description'])
+    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    //   clickInfo.event.remove();
+    // }
   }
 
   handleEvents(events: EventApi[]) {
