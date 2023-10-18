@@ -74,21 +74,21 @@
             </div>
 
             <div class="col-12">
-                <input type="password" class="form-control" id="contrasenya" formControlName="contrasenya" required>
+                <input type="password" class="form-control" id="password" formControlName="password" required>
             </div>
 
-            <div *ngIf="formRegistroUsuario.controls['contrasenya'].getError('required') && (formRegistroUsuario.controls['contrasenya'].touched || buttonClicked == true) " class="col text-danger">
+            <div *ngIf="formRegistroUsuario.controls['password'].getError('required') && (formRegistroUsuario.controls['password'].touched || buttonClicked == true) " class="col text-danger">
                 La contraseña es requerida
             </div>
 
-            <div *ngIf="formRegistroUsuario.controls['contrasenya'].getError('pattern') && formRegistroUsuario.controls['contrasenya'].touched" class="col text-danger">
+            <div *ngIf="formRegistroUsuario.controls['password'].getError('pattern') && formRegistroUsuario.controls['password'].touched" class="col text-danger">
                 El formato de la contraseña no es correcto
             </div>
         </div>
 
         <br/>
 
-        <div class="form group row">
+        <div class="form-group row">
             <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha" (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
         </div>
 

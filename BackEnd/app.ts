@@ -42,8 +42,9 @@ app.post("/registro",jsonParser, (req:any, res:any) =>{
     let apellido = req.body.apellido;
     let email = req.body.email;
     let password = CryptoJS.AES.encrypt(req.body.password, key).toString();
-    //console.log("datos: " +req.body.password, password)
-    let idTipo = 0;
+    console.log("datos: " +req.body.password, password);
+    console.log("a");
+    let admin = 1;
     
 
     let sql1 = `select * FROM usuario WHERE email ='${email}'`;
@@ -51,7 +52,7 @@ app.post("/registro",jsonParser, (req:any, res:any) =>{
         if(error) throw error;
         else{
             if(results==""){
-                let sql2 = `insert into Usuario values ('${email}', '${nombre}','${password}', ${idTipo})`;
+                let sql2 = `insert into Usuario values ('${nombre}', '${apellido}', '${email}', '${password}', ${admin})`;
                 connection.query(sql2, function(error: any, results: any, fields: any){
                     if(error) throw error;
                     else {
@@ -63,6 +64,17 @@ app.post("/registro",jsonParser, (req:any, res:any) =>{
         }
     })
 })
+
+app.get("/obtenerUsuario", jsonParser, (req: any, res: any) => {
+    connection.query("select * from usuario", function (error: any, results: any, fields: any) {
+        if (error) {
+            console.error(error);
+        } else {
+            res.send(JSON.stringify(results))
+        }
+    })
+})
+
 //Inicia sesion de un usuario devolviendo un token de inicio de sesion
 app.post("/iniciosesion",jsonParser,(req:any, res:any) => {
     let email=req.body.email;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router'
-//import { UsuarioService } from 'src/app/servicios/usuario_service/usuario.service';
+import { UsuarioService } from 'src/app/servicios/usuario_service/usuario.service';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -18,7 +18,7 @@ export class RegistroUsuarioComponent {
   constructor(
     private formBuilder: FormBuilder, 
     private router: Router ,
-    //private usuarioService:UsuarioService
+    private usuarioService:UsuarioService
   ){}
 
   ngOnInit(): void {
@@ -59,12 +59,11 @@ export class RegistroUsuarioComponent {
   
   register(){
     if (this.formRegistroUsuario.status === 'VALID') {
-      /*this.usuarioService.registroUsuario(this.formRegistroUsuario.value).subscribe(data => {
+      this.usuarioService.registroUsuario(this.formRegistroUsuario.value).subscribe(data => {
         this.error_id=data.id;
         console.log("id: "+data.id);
         if (this.error_id==1) this.router.navigate(['home']);
-        
-      });*/
+      });
   }
   }
 }

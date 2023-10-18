@@ -30,21 +30,23 @@ export class UsuarioService {
   estaLogeado(){
     return !!localStorage.getItem('token');
   }
+  
   cerrarSesion(){
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
     this.router.navigate(['login']);
   }
+
   obtenerRol(){
     let data = '[' +localStorage.getItem('userData')+']';
     var json = JSON.parse(data)
     return(json[0].idTipo);
   }
 
-
   obtenerUsuario():Observable<any>{
     return this.http.get(URL + '/obtenerUsuario');
   }
+
   eliminarUsuario(data:any): Observable<any> {
     const options = {
       headers: new HttpHeaders({

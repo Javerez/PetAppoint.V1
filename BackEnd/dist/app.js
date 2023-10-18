@@ -9,7 +9,7 @@ const app = express();
 var jsonParser = bodyParser.json();
 app.use(cors());
 // SECRET KEY
-var key = "ASECRET";
+const key = "ASECRET";
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -37,15 +37,15 @@ app.post("/registro", jsonParser, (req, res) => {
     let apellido = req.body.apellido;
     let email = req.body.email;
     let password = CryptoJS.AES.encrypt(req.body.password, key).toString();
-    //console.log("datos: " +req.body.password, password);
-    let idTipo = 0;
+    console.log("datos: " +req.body.password, password);
+    let admin = 1;
     let sql1 = `select * FROM usuario WHERE email ='${email}'`;
     connection.query(sql1, (error, results, fields) => {
         if (error)
             throw error;
         else {
             if (results == "") {
-                let sql2 = `insert into Usuario values ( '${nombre}','${apellido}','${email}','${password}', ${idTipo})`;
+                let sql2 = `insert into Usuario values ( '${nombre}','${apellido}','${email}','${password}', ${admin})`;
                 connection.query(sql2, function (error, results, fields) {
                     if (error)
                         throw error;
@@ -59,6 +59,16 @@ app.post("/registro", jsonParser, (req, res) => {
         }
     });
 });
+
+app.get("/obtenerUsuario", jsonParser, (req, res) => {
+    connection.query("select * from usuario", function (error, results, fields) {
+        if (error) {
+            console.error(error);
+        } else {
+            res.send(JSON.stringify(results))
+        }
+    })
+})
 //Inicia sesion de un usuario devolviendo un token de inicio de sesion
 app.post("/iniciosesion", jsonParser, (req, res) => {
     let email = req.body.email;
