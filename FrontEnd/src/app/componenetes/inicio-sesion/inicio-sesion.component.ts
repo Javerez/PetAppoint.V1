@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router'
-//import { UsuarioService } from 'src/app/services/usuario.service';
+import { UsuarioService } from 'src/app/servicios/usuario_service/usuario.service';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -19,7 +19,7 @@ export class InicioSesionComponent {
   constructor(
     private formBuilder: FormBuilder, 
     private router: Router ,
-    //private usuarioService:UsuarioService
+    private usuarioService:UsuarioService
   ){}
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class InicioSesionComponent {
   
   iniciarSesion() {
     if (this.formInicioSesion.status === 'VALID') {
-      /*this.usuarioService.inicioSesionUsuario(this.formInicioSesion.value).subscribe(data => {
+      this.usuarioService.inicioSesionUsuario(this.formInicioSesion.value).subscribe(data => {
           console.log(data.id)
           switch(data.id){
               case 1:
@@ -59,11 +59,11 @@ export class InicioSesionComponent {
               case 3:
                 localStorage.setItem('token',data.token);
                 localStorage.setItem('userData',JSON.stringify(data.resultados[0]));
-                this.router.navigate(['perfil']);
+                this.router.navigate(['home']);
                 break;
           }
           
-      });*/
+      });
       console.log(this.formInicioSesion.value)
     }
   }

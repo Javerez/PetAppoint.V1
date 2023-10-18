@@ -11,6 +11,7 @@ export class HomeComponent {
 
   ngOnInit() {
   }
+  
   cerrarSesion(){
     this.usuarioService.cerrarSesion();
   }
