@@ -1,4 +1,5 @@
 import { Component, signal, ChangeDetectorRef,ElementRef,ViewChild} from '@angular/core';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -16,7 +17,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./calendario.component.scss']
 })
 export class CalendarioComponent {
-
+  
+  formCita!: FormGroup;
   title = 'appBootstrap';
   closeResult: string = '';
   @ViewChild('mymodal') mymodal: ElementRef | undefined;
@@ -52,7 +54,19 @@ export class CalendarioComponent {
   });
   currentEvents = signal<EventApi[]>([]);
 
-  constructor(private changeDetector: ChangeDetectorRef, private modalService:NgbModal) {
+  constructor(
+    private changeDetector: ChangeDetectorRef, 
+    private modalService:NgbModal) {
+  }
+  ngOnInit(): void {    
+    this.formCita = new FormGroup({
+      tipo: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      descripcion: new FormControl('', Validators.compose([
+        Validators.maxLength(250)
+      ])),
+    })
   }
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -62,25 +76,14 @@ export class CalendarioComponent {
     });
 
   }
-
-  
-
   private getDismissReason(reason: any): string {
-
     if (reason === ModalDismissReasons.ESC) {
-
       return 'by pressing ESC';
-
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-
       return 'by clicking on a backdrop';
-
     } else {
-
       return  `with: ${reason}`;
-
     }
-
   }
 
   handleWeekendsToggle() {
@@ -92,7 +95,10 @@ export class CalendarioComponent {
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');
     this.open(this.mymodal);
-
+    if(selectInfo.allDay.valueOf()){
+      console.log("isa")
+    }
+    
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
@@ -115,9 +121,9 @@ export class CalendarioComponent {
 
   handleEventClick(clickInfo: EventClickArg) {
     console.log(clickInfo.event.extendedProps['description'])
-    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    //   clickInfo.event.remove();
-    // }
+    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      clickInfo.event.remove();
+    }
   }
 
   handleEvents(events: EventApi[]) {
