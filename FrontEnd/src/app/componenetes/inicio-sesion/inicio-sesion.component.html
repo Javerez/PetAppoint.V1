@@ -1,67 +1,78 @@
-  <!--CONTENEDOR-->
-  <div class="container-fluid p-0">
-    <h1 class="pt-3">Iniciar Sesión</h1>
-    <!-- MENSAJES DESDE BACKEND -->
-    <div *ngIf="error_id==1" class="alert alert-danger" role="alert">
-        La cuenta con este email no existe
+<section>
+    <div class="card text-center">
+        <!--CONTENEDOR-->
+        <div class="container-fluid p-0">
+            <h1 class="pt-3">Iniciar Sesión</h1>
+            <!-- MENSAJES DESDE BACKEND -->
+            <div *ngIf="error_id==1" class="alert alert-danger" role="alert">
+                La cuenta con este email no existe
+            </div>
+            <div *ngIf="error_id==2" class="alert alert-danger" role="alert">
+                Contraseña Incorrecta
+            </div>
+            <!--FORMULARIO-->
+            <form #form="ngForm" [formGroup]="formInicioSesion" (ngSubmit)="iniciarSesion()"
+                class="formulario needs-validation p-5" novalidate>
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label class="form-label">Correo Electrónico</label>
+                    </div>
+
+                    <div class="col-12">
+                        <input type="email" class="form-control" id="email" formControlName="email"
+                            placeholder="example@mail.com" required>
+                    </div>
+
+                    <div *ngIf="formInicioSesion.controls['email'].getError('required') && (formInicioSesion.controls['email'].touched || buttonClicked == true)"
+                        class="col-12 text-danger">
+                        El correo es requerido
+                    </div>
+
+                    <div *ngIf="formInicioSesion.controls['email'].getError('email') && formInicioSesion.controls['email'].touched"
+                        class="col-12 text-danger">
+                        El formato del correo no es correcto
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label class="form-label">Contraseña</label>
+                    </div>
+
+                    <div class="col-12">
+                        <input type="password" class="form-control" id="password" formControlName="password" required>
+                    </div>
+
+                    <div *ngIf="formInicioSesion.controls['password'].getError('required') && (formInicioSesion.controls['password'].touched || buttonClicked == true) "
+                        class="col text-danger">
+                        La contraseña es requerida
+                    </div>
+
+                    <div *ngIf="formInicioSesion.controls['password'].getError('pattern') && formInicioSesion.controls['password'].touched"
+                        class="col text-danger">
+                        El formato de la contraseña no es correcto
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="form group row">
+                    <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha"
+                        (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
+                </div>
+
+                <br />
+
+                <div class="form-group row">
+                    <div class="col-4 col-md-4 btn-siguiente">
+                        <button [disabled]="!captchaResolved" type="submit" class="btn btn-primary">Siguiente</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
     </div>
-    <div *ngIf="error_id==2" class="alert alert-danger" role="alert">
-        Contraseña Incorrecta
-    </div>
-    <!--FORMULARIO-->
-    <form #form="ngForm" [formGroup]="formInicioSesion" (ngSubmit)="iniciarSesion()" class="formulario needs-validation p-5" novalidate>
-        <div class="form-group row">
-            <div class="col-12">
-                <label class="form-label">Correo Electrónico</label>
-            </div>
-
-            <div class="col-12">
-                <input type="email" class="form-control" id="email" formControlName="email" placeholder="example@mail.com" required>
-            </div>
-
-            <div *ngIf="formInicioSesion.controls['email'].getError('required') && (formInicioSesion.controls['email'].touched || buttonClicked == true)" class="col-12 text-danger">
-                El correo es requerido
-            </div>
-
-            <div *ngIf="formInicioSesion.controls['email'].getError('email') && formInicioSesion.controls['email'].touched" class="col-12 text-danger">
-                El formato del correo no es correcto
-            </div>
-        </div>
-
-        <br />
-
-        <div class="form-group row">
-            <div class="col-12">
-                <label class="form-label">Contraseña</label>
-            </div>
-
-            <div class="col-12">
-                <input type="password" class="form-control" id="password" formControlName="password" required>
-            </div>
-
-            <div *ngIf="formInicioSesion.controls['password'].getError('required') && (formInicioSesion.controls['password'].touched || buttonClicked == true) " class="col text-danger">
-                La contraseña es requerida
-            </div>
-
-            <div *ngIf="formInicioSesion.controls['password'].getError('pattern') && formInicioSesion.controls['password'].touched" class="col text-danger">
-                El formato de la contraseña no es correcto
-            </div>
-        </div>
-
-        <br/>
-
-        <div class="form group row">
-            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha" (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
-        </div>
-
-        <br/>
-
-        <div class="form-group row">
-            <div class="col-4 col-md-4 btn-siguiente">
-                <button [disabled]="!captchaResolved" type="submit" class="btn btn-primary">Siguiente</button>
-            </div>
-
-        </div>
-
-    </form>
-</div>
+</section>
