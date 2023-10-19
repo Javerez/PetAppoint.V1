@@ -1,107 +1,126 @@
-<!--CONTENEDOR-->
-<div class="container-fluid p-0">
-    <h1 class="pt-3">Registro Veterinario</h1>
-    <!-- MENSAJES DESDE BACKEND -->
-    <div *ngIf="error_id==1" class="alert alert-danger" role="alert">
-        La cuenta con este email no existe
-    </div>
-    <div *ngIf="error_id==2" class="alert alert-danger" role="alert">
-        Contraseña Incorrecta
-    </div>
-    <!--FORMULARIO-->
-    <form #form="ngForm" [formGroup]="formRegistroUsuario" (ngSubmit)="register()" class="formulario needs-validation p-5" novalidate>
-        <div class="form-group row">
-            <div class="col-12">
-                <label class="form-label">Nombre</label>
-            </div>
+<section>
+        <div class="card text-center">
+            <!--CONTENEDOR-->
+            <div class="container-fluid p-0">
+                <h1 class="pt-3">Registro Veterinario</h1>
+                <!-- MENSAJES DESDE BACKEND -->
+                <div *ngIf="error_id==1" class="alert alert-danger" role="alert">
+                    La cuenta con este email no existe
+                </div>
+                <div *ngIf="error_id==2" class="alert alert-danger" role="alert">
+                    Contraseña Incorrecta
+                </div>
+                <!--FORMULARIO-->
+                <form #form="ngForm" [formGroup]="formRegistroUsuario" (ngSubmit)="register()"
+                    class="formulario needs-validation p-3 text-center" novalidate>
+                    <div class="form-group row text-center">
+                        <div class="col-12">
+                            <label class="form-label">Nombre</label>
+                        </div>
 
-            <div class="col-12">
-                <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Juanito Ignacio" required>
-            </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="nombre" formControlName="nombre"
+                                placeholder="Juanito Ignacio" required>
+                        </div>
 
-            <div *ngIf="formRegistroUsuario.controls['nombre'].getError('required') && (formRegistroUsuario.controls['nombre'].touched || buttonClicked == true)" class="col-12 text-danger">
-                El nombre es requerido
-            </div>
+                        <div *ngIf="formRegistroUsuario.controls['nombre'].getError('required') && (formRegistroUsuario.controls['nombre'].touched || buttonClicked == true)"
+                            class="col-12 text-danger">
+                            El nombre es requerido
+                        </div>
 
-            <div *ngIf="formRegistroUsuario.controls['nombre'].getError('pattern') && formRegistroUsuario.controls['nombre'].touched" class="col-12 text-danger">
-                El formato del nombre no es correcto
+                        <div *ngIf="formRegistroUsuario.controls['nombre'].getError('pattern') && formRegistroUsuario.controls['nombre'].touched"
+                            class="col-12 text-danger">
+                            El formato del nombre no es correcto
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label class="form-label">Apellido</label>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="apellido" formControlName="apellido"
+                                placeholder="Arellano Gonzalez" required>
+                        </div>
+
+                        <div *ngIf="formRegistroUsuario.controls['apellido'].getError('required') && (formRegistroUsuario.controls['apellido'].touched || buttonClicked == true)"
+                            class="col-12 text-danger">
+                            El apellido es requerido
+                        </div>
+
+                        <div *ngIf="formRegistroUsuario.controls['apellido'].getError('pattern') && formRegistroUsuario.controls['apellido'].touched"
+                            class="col-12 text-danger">
+                            El formato del apellido no es correcto
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label class="form-label">Correo Electrónico</label>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="email" class="form-control" id="email" formControlName="email"
+                                placeholder="example@mail.com" required>
+                        </div>
+
+                        <div *ngIf="formRegistroUsuario.controls['email'].getError('required') && (formRegistroUsuario.controls['email'].touched || buttonClicked == true)"
+                            class="col-12 text-danger">
+                            El correo es requerido
+                        </div>
+
+                        <div *ngIf="formRegistroUsuario.controls['email'].getError('email') && formRegistroUsuario.controls['email'].touched"
+                            class="col-12 text-danger">
+                            El formato del correo no es correcto
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label class="form-label">Contraseña</label>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="password" class="form-control" id="password" formControlName="password"
+                                required>
+                        </div>
+
+                        <div *ngIf="formRegistroUsuario.controls['password'].getError('required') && (formRegistroUsuario.controls['password'].touched || buttonClicked == true) "
+                            class="col text-danger">
+                            La contraseña es requerida
+                        </div>
+
+                        <div *ngIf="formRegistroUsuario.controls['password'].getError('pattern') && formRegistroUsuario.controls['password'].touched"
+                            class="col text-danger">
+                            El formato de la contraseña no es correcto
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group row">
+                        <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha"
+                            (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <button class="btn btn-primary" routerLink="/home">Atras</button>
+                        </div>
+                        <div class="col-4 col-md-4">
+                            <button [disabled]="!captchaResolved" type="submit"
+                                class="btn btn-primary">Siguiente</button>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
-        <br />
-
-        <div class="form-group row">
-            <div class="col-12">
-                <label class="form-label">Apellido</label>
-            </div>
-
-            <div class="col-12">
-                <input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Arellano Gonzalez" required>
-            </div>
-
-            <div *ngIf="formRegistroUsuario.controls['apellido'].getError('required') && (formRegistroUsuario.controls['apellido'].touched || buttonClicked == true)" class="col-12 text-danger">
-                El apellido es requerido
-            </div>
-
-            <div *ngIf="formRegistroUsuario.controls['apellido'].getError('pattern') && formRegistroUsuario.controls['apellido'].touched" class="col-12 text-danger">
-                El formato del apellido no es correcto
-            </div>
-        </div>
-        <br />
-
-        <div class="form-group row">
-            <div class="col-12">
-                <label class="form-label">Correo Electrónico</label>
-            </div>
-
-            <div class="col-12">
-                <input type="email" class="form-control" id="email" formControlName="email" placeholder="example@mail.com" required>
-            </div>
-
-            <div *ngIf="formRegistroUsuario.controls['email'].getError('required') && (formRegistroUsuario.controls['email'].touched || buttonClicked == true)" class="col-12 text-danger">
-                El correo es requerido
-            </div>
-
-            <div *ngIf="formRegistroUsuario.controls['email'].getError('email') && formRegistroUsuario.controls['email'].touched" class="col-12 text-danger">
-                El formato del correo no es correcto
-            </div>
-        </div>
-
-        <br />
-
-        <div class="form-group row">
-            <div class="col-12">
-                <label class="form-label">Contraseña</label>
-            </div>
-
-            <div class="col-12">
-                <input type="password" class="form-control" id="password" formControlName="password" required>
-            </div>
-
-            <div *ngIf="formRegistroUsuario.controls['password'].getError('required') && (formRegistroUsuario.controls['password'].touched || buttonClicked == true) " class="col text-danger">
-                La contraseña es requerida
-            </div>
-
-            <div *ngIf="formRegistroUsuario.controls['password'].getError('pattern') && formRegistroUsuario.controls['password'].touched" class="col text-danger">
-                El formato de la contraseña no es correcto
-            </div>
-        </div>
-
-        <br/>
-
-        <div class="form-group row">
-            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha" (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
-        </div>
-
-        <br/>
-
-        <div class="form-group row">
-            <div class="col-4 col-md-2">
-                <button class="btn btn-primary" routerLink="/home">Atras</button>
-            </div>
-            <div class="col-4 col-md-4 btn-siguiente">
-                <button [disabled]="!captchaResolved" type="submit" class="btn btn-primary">Siguiente</button>
-            </div>
-        </div>
-
-    </form>
-</div>
+</section>
