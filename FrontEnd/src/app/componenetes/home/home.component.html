@@ -6,11 +6,16 @@
                 <button class="btn btn-primary" routerLink="/calendario">Calendario</button>
                 <br/>
                 <button class="btn btn-primary" routerLink="/consultas">Consultas</button>
+                
+                <ng-container *ngIf="esAdmin()">
+                    <br/>
+                    <button class="btn btn-primary" routerLink="/registro-usuario">Registrar</button>
+                </ng-container>
                 <br/>
-                <button class="btn btn-primary" routerLink="/registro-usuario">Registrar</button>
-                <br/>
-                <button class="btn btn-primary" routerLink="/inicio-sesion">Cerrar Sesion</button>
+                <button class="btn btn-primary" (click)="cerrarSesion()">Cerrar Sesion</button>
             </div>
         </div>
+
+
     </div>
 </section>

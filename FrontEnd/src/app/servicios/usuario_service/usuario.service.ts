@@ -34,7 +34,7 @@ export class UsuarioService {
   cerrarSesion(){
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
-    this.router.navigate(['login']);
+    this.router.navigate(['inicio-sesion']);
   }
 
   obtenerRol(){

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'
 import { UsuarioService } from 'src/app/servicios/usuario_service/usuario.service';
 
@@ -11,20 +11,20 @@ import { UsuarioService } from 'src/app/servicios/usuario_service/usuario.servic
 export class RegistroUsuarioComponent {
   formRegistroUsuario!: FormGroup;
   buttonClicked!: boolean;
-  public captchaResolved : boolean = false;
-  public siteKey : any;
-  error_id:any;
+  public captchaResolved: boolean = false;
+  public siteKey: any;
+  error_id: any;
 
   constructor(
-    private formBuilder: FormBuilder, 
-    private router: Router ,
-    private usuarioService:UsuarioService
-  ){}
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit(): void {
-    this.buttonClicked=false;
-    this.captchaResolved=false;
-    
+    this.buttonClicked = false;
+    this.captchaResolved = false;
+
     let formulario = {
       nombre: ['', Validators.compose([
         Validators.required,
@@ -42,28 +42,29 @@ export class RegistroUsuarioComponent {
         Validators.required,
         Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)
       ])],
-      recaptcha: ['',Validators.required]
+      recaptcha: ['', Validators.required]
     }
     this.formRegistroUsuario = this.formBuilder.group(formulario);
     this.siteKey = "6LcCcJkmAAAAAM8lZ_jL7MZeSOI1iKd4exAu2wI1";
 
   }
 
-  checkCaptcha(captchaResponse : string) {    
+  checkCaptcha(captchaResponse: string) {
     this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
   }
 
-  mostrar(){
+  mostrar() {
     console.log(this.formRegistroUsuario.value)
   }
-  
-  register(){
+
+  register() {
+    console.log(this.formRegistroUsuario.value)
     if (this.formRegistroUsuario.status === 'VALID') {
       this.usuarioService.registroUsuario(this.formRegistroUsuario.value).subscribe(data => {
-        this.error_id=data.id;
-        console.log("id: "+data.id);
-        if (this.error_id==1) this.router.navigate(['home']);
+        this.error_id = data.id;
+        console.log("id: " + data.id);
+        if (this.error_id == 1) this.router.navigate(['consultas']);
       });
-  }
+    }
   }
 }

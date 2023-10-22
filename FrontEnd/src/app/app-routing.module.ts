@@ -7,7 +7,7 @@ import { RegistroUsuarioComponent } from './componenetes/registro-usuario/regist
 import { ConsultasComponent } from './componenetes/consultas/consultas.component';
 
 const routes: Routes = [
-  {path:"",pathMatch:"full",redirectTo:"home"},
+  {path:"",pathMatch:"full",redirectTo:"inicio-sesion"},
   {path:"home",component:HomeComponent},
   {path:"registro-usuario", component:RegistroUsuarioComponent},
   {path:"inicio-sesion",component:InicioSesionComponent},

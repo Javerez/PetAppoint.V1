@@ -106,3 +106,50 @@ app.post("/iniciosesion", jsonParser, (req, res) => {
         }
     });
 });
+app.get("/consultas", jsonParser,(req, res) =>{
+    let sql = 'select * from consulta';
+    connection.query(sql, (error, results, fields) =>{
+        if(error) throw error;
+        else{
+            res.json(results);
+        }
+    })
+})
+app.post("/agregarconsulta", jsonParser, (req, res) => {
+    let idConsulta = req.body.tipo;
+    let nombreAnimal = req.body.nombreAnimal;
+    let fecha = "2022-04-03";
+    let emailVet = "jose@example";
+    let emailCliente = "elpepe@gmail.com";
+    let sql1 = `select * FROM consulta`;
+    connection.query(sql1, (error, results, fields) => {
+        if (error)
+            throw error;
+        else {
+            console.log(results)
+            if (results != "") {
+                let sql2 = `insert into consulta values (${idConsulta},${fecha},'${nombreAnimal}','${emailVet}', '${emailCliente}')`;
+                connection.query(sql2, function (error, results, fields) {
+                    if (error)
+                        throw error;
+                    else {
+                        res.json({ "id": 1 });
+                    }
+                });
+            }
+            else
+                res.json({ "id": 2 });
+        }
+    });
+});
+
+app.delete('/eliminarconsulta',jsonParser ,(req, res) =>{
+    const idConsulta = req.body.idConsulta;
+    let sql = `delete from consulta where idConsulta='${idConsulta}'`;
+    connection.query(sql, (error, results, fields) =>{
+        if(error) throw error;
+        else{
+            res.json({id:1})
+        }
+    })
+});

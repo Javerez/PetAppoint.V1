@@ -8,7 +8,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class CalendarioComponent {
   formCita!: FormGroup;
   title = 'appBootstrap';
   closeResult: string = '';
-  @ViewChild('mymodal') mymodal: ElementRef | undefined;
+  @ViewChild('mymodal') mymodal: NgbModalRef | undefined;
 
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
@@ -74,9 +74,10 @@ export class CalendarioComponent {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-
+    
   }
   private getDismissReason(reason: any): string {
+    //console.log(this.formCita.status)
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -85,7 +86,6 @@ export class CalendarioComponent {
       return  `with: ${reason}`;
     }
   }
-
   handleWeekendsToggle() {
     this.calendarOptions.mutate((options) => {
       options.weekends = !options.weekends;
@@ -93,11 +93,11 @@ export class CalendarioComponent {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
+    
+    const title="aaaaaqa";
+
     this.open(this.mymodal);
-    if(selectInfo.allDay.valueOf()){
-      console.log("isa")
-    }
+    //console.log(this.formCita.controls['tipo'].value)
     
     const calendarApi = selectInfo.view.calendar;
 
@@ -117,6 +117,7 @@ export class CalendarioComponent {
         
       });
     }
+    
   }
 
   handleEventClick(clickInfo: EventClickArg) {
