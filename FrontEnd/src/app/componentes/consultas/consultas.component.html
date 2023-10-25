@@ -14,13 +14,13 @@
                 </li>
             </ul>
         </div>
-        <button class="btn btn-primary" routerLink="/home">Volver</button>
-        <button class="btn btn-secondary" (click)="abrirModal()">Agregar consulta</button>
+        <button  mat-raised-button routerLink="/home">Volver</button>
+        <button  mat-raised-button color="primary"(click)="abrirDialog()">Agregar Consulta</button>    
     </div>
 </section>
 
 
-<ng-template #mymodal let-modal>
+<!-- <ng-template #mymodal let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
     </div>
@@ -63,4 +63,4 @@
         </button>
         <button type="submit" class="btn btn-outline-dark"(click)="agregarConsulta()">Ok</button>
     </div>
-</ng-template>
+</ng-template> -->
