@@ -8,27 +8,31 @@
     <mat-form-field appearance="outline">
         <mat-label>Email del Dueño del Animal</mat-label>
         <input matInput placeholder="pepito123@gmail.com" formControlName="emailCliente" >
-        <mat-error *ngIf="formCita.controls['emailCliente'].invalid">{{getErrorMessage()}}</mat-error>
+        <!-- <mat-error *ngIf="formCita.controls['emailCliente'].invalid">{{getErrorMessage()}}</mat-error> -->
     </mat-form-field>
     <mat-label><h1>Tipo de Hora</h1></mat-label>
-    <mat-radio-group class="tipo-radio-group"formControlName="tipo">
-        <mat-radio-button class="tipo-radio-button" *ngFor="let tipo of tipoConsulta" [value]="tipo" >
-            {{tipo}}
+    <mat-radio-group class="tipo-radio-group"formControlName="tipoConsulta">
+        <mat-radio-button class="tipo-radio-button" *ngFor="let tipoConsulta of tipo" [value]="tipoConsulta" >
+            {{tipoConsulta}}
         </mat-radio-button>
     </mat-radio-group>
 
     <mat-form-field appearance="outline">
         <mat-label>Elige una fecha</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input formControlName="fecha" [min]="minDate" [max]="maxDate"matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field appearance="outline">
+        <mat-label>Elige una hora</mat-label>
+        <input type="time" matInput formControlName="hora" min="08:00" max="19:00">
+     </mat-form-field>
+    <mat-form-field appearance="outline">
         <mat-label>Descripcion</mat-label>
-        <textarea rows="6" matInput></textarea>
+        <textarea rows="6" matInput formControlName="descripcion"></textarea>
       </mat-form-field>  
 </div>
-<div mati-dialog-action class="botones" >
+<div mati-dialog-action class="botones">
     <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
-    <button  style="margin-left: 8px;" mat-raised-button color="primary" mat-dialog-close>Guardar</button>
+    <button type="submit" style="margin-left: 8px;" mat-raised-button color="primary" (click)="agregar()" >{{btnaccion}}</button>
 </div>

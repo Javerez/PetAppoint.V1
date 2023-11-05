@@ -15,9 +15,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule} from '@angular/material/radio'; 
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table'; 
 
 
 //Angular
@@ -35,6 +35,9 @@ import { RegistroUsuarioComponent } from './componentes/registro-usuario/registr
 import { HomeComponent } from './componentes/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgregarFechaComponent } from './componentes/agregar-fecha/agregar-fecha.component';
+//Fecha y hora
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -66,8 +69,12 @@ import { AgregarFechaComponent } from './componentes/agregar-fecha/agregar-fecha
     MatDatepickerModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatTableModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'es-CL'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

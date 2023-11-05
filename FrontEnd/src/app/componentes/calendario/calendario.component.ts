@@ -1,5 +1,4 @@
 import { Component, signal, ChangeDetectorRef,ElementRef,ViewChild} from '@angular/core';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -18,7 +17,6 @@ import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-boots
 })
 export class CalendarioComponent {
   
-  formCita!: FormGroup;
   title = 'appBootstrap';
   closeResult: string = '';
   @ViewChild('mymodal') mymodal: NgbModalRef | undefined;
@@ -59,14 +57,7 @@ export class CalendarioComponent {
     private modalService:NgbModal) {
   }
   ngOnInit(): void {    
-    this.formCita = new FormGroup({
-      tipo: new FormControl('', Validators.compose([
-        Validators.required
-      ])),
-      descripcion: new FormControl('', Validators.compose([
-        Validators.maxLength(250)
-      ])),
-    })
+    
   }
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {

@@ -53,12 +53,12 @@ export class RegistroUsuarioComponent {
     this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
   }
 
-  mostrar() {
-    console.log(this.formRegistroUsuario.value)
-  }
+  // mostrar() {
+  //   console.log(this.formRegistroUsuario.value)
+  // }
 
   register() {
-    console.log(this.formRegistroUsuario.value)
+    //console.log(this.formRegistroUsuario.value)
     if (this.formRegistroUsuario.status === 'VALID') {
       this.usuarioService.registroUsuario(this.formRegistroUsuario.value).subscribe(data => {
         this.error_id = data.id;

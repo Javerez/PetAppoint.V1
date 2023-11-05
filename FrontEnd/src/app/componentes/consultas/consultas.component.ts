@@ -1,10 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConsultasService } from 'src/app/servicios/consultas_service/consultas.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarFechaComponent } from '../agregar-fecha/agregar-fecha.component';
+
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -16,13 +21,12 @@ import { AgregarFechaComponent } from '../agregar-fecha/agregar-fecha.component'
 export class ConsultasComponent implements OnInit {
   error_id: any;
   datos: Array<any> = [];
+  displayedColumns!: string[];
+  dataSource!: MatTableDataSource<any>;
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  nuevaConsulta: any = {
-    title: '',
-    nombre: '',
-    fecha: null,
-  }
   constructor(
     private consultaService: ConsultasService,
     private router: Router,
@@ -31,49 +35,75 @@ export class ConsultasComponent implements OnInit {
   abrirDialog() {
     this.dialog.open(AgregarFechaComponent, {
       width: '30%'
+    }).afterClosed().subscribe(val=>{
+      if(val=='guardar'){
+        this.obtenerConsultas();
+      }
     });
   }
   ngOnInit(): void {
-    this.consultaService.getConsultas().subscribe(data => {
-      //console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        this.datos.push(data[i]);
-      }
-    });
+    if(this.esAdmin() == true){
+      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','emailVet','emailCliente' ,'tipoConsulta','accion'];
+    }else{
+      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','emailVet','emailCliente' ,'tipoConsulta'];
+    }
+    this.obtenerConsultas();
+  }
+  esAdmin(){
+    let user
+    const data = localStorage.getItem("userData");
+    if (data!=null){
+      user=JSON.parse(data);
+    }
+    if(user.admin==1){
+      return true;
+    }
+    else return false;
     
   }
-
-  // agregarConsulta(){
-  //   console.log("agregado")
-  //   if (this.formCita.status === 'VALID') {
-  //     this.consultaService.agregarConsulta(this.formCita.value).subscribe(data => {
-  //       this.error_id = data.id;
-  //       console.log("id: " + data.id);
-  //       if (this.error_id == 1) this.router.navigate(['home']);
-  //     });
-  //   }
-  // }
-
-
-  eliminarConsulta(idConsulta: any) {
-    this.consultaService.eliminarConsulta(idConsulta).subscribe(data => {
-      if (data.id == 1) {
-        this.router.navigate(['consultas'])
+  obtenerConsultas(){
+    this.consultaService.getConsultas()
+    .subscribe({
+      next:(res)=>{
+        this.dataSource = new MatTableDataSource(res)
+        this.dataSource.paginator = this.paginator
+        this.dataSource.sort = this.sort  
+      },
+      error:()=>{
+        alert("Hubo un error inesperado")
+      }
+        
+      });
+  }
+  editarConsulta(row : any){
+    this.dialog.open(AgregarFechaComponent, {
+      width: '30%',
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if(val=='actualizar'){
+        this.obtenerConsultas();
       }
     });
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
+  eliminarConsulta(idConsulta: any) {
 
-
-
-
-
-
-
-
-
-
-
+    this.consultaService.eliminarConsulta(idConsulta).subscribe({
+      next:(res)=>{
+        this.obtenerConsultas();
+      },
+      error:()=>{
+        alert("Hubo un error eliminando")
+      }
+    });
+  }
 
 }

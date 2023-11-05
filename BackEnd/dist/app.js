@@ -1,4 +1,5 @@
 "use strict";
+const moment = require('moment'); 
 const express = require('express');
 const mysql = require("mysql");
 const bodyParser = require('body-parser');
@@ -31,6 +32,10 @@ const configuracion = {
 app.listen(configuracion, () => {
     console.log(`Conectando al servidor http://localhost:${configuracion.port}`);
 });
+
+
+
+
 //Registra 
 app.post("/registro", jsonParser, (req, res) => {
     let nombre = req.body.nombre;
@@ -116,36 +121,56 @@ app.get("/consultas", jsonParser,(req, res) =>{
     })
 })
 app.post("/agregarconsulta", jsonParser, (req, res) => {
-    let idConsulta = req.body.tipo;
+    let tipoConsulta = req.body.tipoConsulta;
     let nombreAnimal = req.body.nombreAnimal;
-    let fecha = "2022-04-03";
-    let emailVet = "jose@example";
-    let emailCliente = "elpepe@gmail.com";
+
+    let aux = moment(req.body.fecha).format("YYYY-MM-DD");
+    let fecha = aux.concat(" "+req.body.hora.toString()+":00");     
+
+    let emailVet =  req.body.emailVet;
+    let emailCliente = req.body.emailCliente;
     let sql1 = `select * FROM consulta`;
     connection.query(sql1, (error, results, fields) => {
         if (error)
             throw error;
-        else {
-            console.log(results)
-            if (results != "") {
-                let sql2 = `insert into consulta values (${idConsulta},${fecha},'${nombreAnimal}','${emailVet}', '${emailCliente}')`;
-                connection.query(sql2, function (error, results, fields) {
-                    if (error)
-                        throw error;
-                    else {
-                        res.json({ "id": 1 });
-                    }
-                });
-            }
-            else
-                res.json({ "id": 2 });
+        else { 
+            let sql2 = `insert into consulta values ('null','${fecha}','${nombreAnimal}','${emailVet}', '${emailCliente}','${tipoConsulta}')`;
+            connection.query(sql2, function (error, results, fields) {
+                if (error)
+                    throw error;
+                else {
+                    res.json({ "id": 1 });
+                }
+            });
+        }
+    });
+});
+app.put('/actualizarconsulta', jsonParser,(req,res)=>{
+    
+    let idConsulta =req.body.idConsulta;
+    let tipoConsulta = req.body.formvalue.tipoConsulta;
+    let nombreAnimal = req.body.formvalue.nombreAnimal;
+
+    let aux = moment(req.body.formvalue.fecha).format("YYYY-MM-DD");
+    let fecha = aux.concat(" "+req.body.formvalue.hora.toString()+":00");     
+
+    let emailVet =  req.body.formvalue.emailVet;
+    let emailCliente = req.body.formvalue.emailCliente;
+    let sql = `update Consulta set fecha='${fecha}', nombreAnimal='${nombreAnimal}', emailVet='${emailVet}',
+    emailCliente='${emailCliente}' , tipoConsulta='${tipoConsulta}' where idConsulta='${idConsulta}'`;
+
+    connection.query(sql, (error, results, fields) =>{
+        if(error) throw error;
+        else{
+            if(results.affectedRows==0) res.json({id: 2});
+            else res.json({id: 1});
         }
     });
 });
 
 app.delete('/eliminarconsulta',jsonParser ,(req, res) =>{
     const idConsulta = req.body.idConsulta;
-    let sql = `delete from consulta where idConsulta='${idConsulta}'`;
+    let sql = `delete from Consulta where idConsulta='${idConsulta}'`;
     connection.query(sql, (error, results, fields) =>{
         if(error) throw error;
         else{
