@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2023 a las 01:36:44
+-- Tiempo de generación: 06-11-2023 a las 23:42:38
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -31,18 +31,20 @@ CREATE TABLE `consulta` (
   `idConsulta` int(4) NOT NULL,
   `fecha` datetime NOT NULL,
   `nombreAnimal` varchar(100) NOT NULL,
+  `nombreCliente` varchar(20) NOT NULL,
+  `rutCliente` varchar(12) NOT NULL,
+  `telefonoCliente` int(9) NOT NULL,
   `emailVet` varchar(100) NOT NULL,
-  `emailCliente` varchar(100) NOT NULL,
-  `tipoConsulta` varchar(20) NOT NULL
+  `tipoConsulta` varchar(25) NOT NULL,
+  `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `consulta`
 --
 
-INSERT INTO `consulta` (`idConsulta`, `fecha`, `nombreAnimal`, `emailVet`, `emailCliente`, `tipoConsulta`) VALUES
-(19, '2023-11-30 16:30:00', 'Isa', 'jose@example', 'elpepe123@gmail.com', 'Consulta veterinaria'),
-(20, '2023-11-22 12:20:00', 'Misha', 'jose@example', 'juanluis@hotmail.com', 'Operación');
+INSERT INTO `consulta` (`idConsulta`, `fecha`, `nombreAnimal`, `nombreCliente`, `rutCliente`, `telefonoCliente`, `emailVet`, `tipoConsulta`, `descripcion`) VALUES
+(23, '2023-11-22 12:45:00', 'Negrita', 'Pedro Pascal', '5.588.181-2', 923451234, 'jose@example', 'Cirugia esterilización', 'Hola');
 
 -- --------------------------------------------------------
 
@@ -108,7 +110,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `consulta`
 --
 ALTER TABLE `consulta`
-  MODIFY `idConsulta` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idConsulta` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `receta`
