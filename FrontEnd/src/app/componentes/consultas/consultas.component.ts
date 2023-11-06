@@ -43,9 +43,9 @@ export class ConsultasComponent implements OnInit {
   }
   ngOnInit(): void {
     if(this.esAdmin() == true){
-      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','emailVet','emailCliente' ,'tipoConsulta','accion'];
+      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','nombreCliente','rutCliente','telefonoCliente','emailVet','tipoConsulta','accion'];
     }else{
-      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','emailVet','emailCliente' ,'tipoConsulta'];
+      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','nombreCliente','rutCliente','telefonoCliente','emailVet','tipoConsulta'];
     }
     this.obtenerConsultas();
   }

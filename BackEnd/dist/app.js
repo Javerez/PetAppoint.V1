@@ -128,13 +128,16 @@ app.post("/agregarconsulta", jsonParser, (req, res) => {
     let fecha = aux.concat(" "+req.body.hora.toString()+":00");     
 
     let emailVet =  req.body.emailVet;
-    let emailCliente = req.body.emailCliente;
+    let nombreCliente = req.body.nombreCliente;
+    let rutCliente = req.body.rutCliente;
+    let descripcion = req.body.descripcion;
+    let telefonoCliente = req.body.telefonoCliente;
     let sql1 = `select * FROM consulta`;
     connection.query(sql1, (error, results, fields) => {
         if (error)
             throw error;
         else { 
-            let sql2 = `insert into consulta values ('null','${fecha}','${nombreAnimal}','${emailVet}', '${emailCliente}','${tipoConsulta}')`;
+            let sql2 = `insert into consulta values ('null','${fecha}','${nombreAnimal}','${nombreCliente}','${rutCliente}','${telefonoCliente}','${emailVet}','${tipoConsulta}','${descripcion}')`;
             connection.query(sql2, function (error, results, fields) {
                 if (error)
                     throw error;

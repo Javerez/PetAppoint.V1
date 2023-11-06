@@ -18,7 +18,6 @@ export class ConsultasService {
   public agregarConsulta(formvalue:any): Observable<any> {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(formvalue);
-    console.log(body)
     return this.http.post(URL + '/agregarconsulta', body,{'headers':headers});
   }
 

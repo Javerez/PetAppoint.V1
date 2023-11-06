@@ -2,6 +2,7 @@ import { Component, Inject, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsultasService } from 'src/app/servicios/consultas_service/consultas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RutService } from 'rut-chileno'
 
 @Component({
   selector: 'app-agregar-fecha',
@@ -17,7 +18,7 @@ export class AgregarFechaComponent {
 
   btnaccion: string = "Guardar"
 
-  tipo = ["Consulta veterinaria", "Operación"]
+  tipo = ["Consulta veterinaria", "Cirugia esterilización","Cirugia general"]
   formCita !: FormGroup;
   error_id: any;
 
@@ -26,6 +27,7 @@ export class AgregarFechaComponent {
     private consultaService: ConsultasService,
     @Inject(MAT_DIALOG_DATA) public editarConsulta: any,
     private dialogRef: MatDialogRef<AgregarFechaComponent>,
+    private rutService: RutService, 
   ) {
     dialogRef.disableClose = true;
     const currentYear = new Date().getFullYear();
@@ -38,18 +40,22 @@ export class AgregarFechaComponent {
 
   ngOnInit(): void {
     this.formCita = this.formBuilder.group({
-      nombreAnimal: ['', [Validators.required, Validators.maxLength(20)]],
-      emailCliente: ['', [Validators.required, Validators.email]],
-      emailVet: ['', [Validators.required, Validators.email]],
+      nombreAnimal: ['', [Validators.required, Validators.maxLength(20),Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
+      nombreCliente: ['', [Validators.required,Validators.maxLength(20),Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
+      rutCliente: ['', [Validators.required,this.rutService.validaRutForm]],
+      telefonoCliente: ['', [Validators.required,Validators.pattern("^[0-9]*$"),Validators.minLength(8)]],
       fecha: ['', Validators.required],
       hora: ['', Validators.required],
+      emailVet: ['', Validators.required],
       tipoConsulta: ['Consulta veterinaria', Validators.required],
       descripcion: ['', [Validators.maxLength(250)]],
     })
     if (this.editarConsulta) {
       this.btnaccion = "Actualizar"
       this.formCita.controls['nombreAnimal'].setValue(this.editarConsulta.nombreAnimal)
-      this.formCita.controls['emailCliente'].setValue(this.editarConsulta.emailCliente)
+      this.formCita.controls['nombreCliente'].setValue(this.editarConsulta.emailCliente)
+      this.formCita.controls['rutCliente'].setValue(this.editarConsulta.rutCliente)
+      this.formCita.controls['telefonoCliente'].setValue(this.editarConsulta.telefonoCliente)
       this.formCita.controls['emailVet'].setValue(this.editarConsulta.emailVet)
       this.formCita.controls['fecha'].setValue(this.editarConsulta.fecha)
       const date = new Date(this.editarConsulta.fecha).toLocaleTimeString().split(":00")[0]
@@ -58,14 +64,11 @@ export class AgregarFechaComponent {
       this.formCita.controls['descripcion'].setValue(this.editarConsulta.descripcion)
     }
   }
-  // getErrorMessage() {
-  //   if (this.formCita.hasError('required')) {
-  //     return 'You must enter a value';
-  //   }
-
-  //   return this.formCita.hasError('email') ? 'Not a valid email' : '';
-  // }
-
+  inputEvent(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.formCita.controls['rutCliente'].patchValue(rut, {emitEvent :false});
+  }
 
   agregar() {
     if (!this.editarConsulta) {
