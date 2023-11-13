@@ -11,9 +11,15 @@ export const INITIAL_EVENTS: EventInput[] = [
   },
   {
     id: createEventId(),
-    title: 'Timed event',
-    start: TODAY_STR + 'T00:00:00',
-    end: TODAY_STR + 'T03:00:00'
+    title: 'Consulta',
+    start: TODAY_STR + 'T12:00:00',
+    end: TODAY_STR + 'T15:00:00',
+    extendedProps: {
+      nombreAnimal: "sanson",
+      nombreCliente: "waaaa",
+    },
+    description: "anestecia",
+
   },
   {
     id: createEventId(),

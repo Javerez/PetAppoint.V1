@@ -53,7 +53,7 @@ export class AgregarFechaComponent {
     if (this.editarConsulta) {
       this.btnaccion = "Actualizar"
       this.formCita.controls['nombreAnimal'].setValue(this.editarConsulta.nombreAnimal)
-      this.formCita.controls['nombreCliente'].setValue(this.editarConsulta.emailCliente)
+      this.formCita.controls['nombreCliente'].setValue(this.editarConsulta.nombreCliente)
       this.formCita.controls['rutCliente'].setValue(this.editarConsulta.rutCliente)
       this.formCita.controls['telefonoCliente'].setValue(this.editarConsulta.telefonoCliente)
       this.formCita.controls['emailVet'].setValue(this.editarConsulta.emailVet)

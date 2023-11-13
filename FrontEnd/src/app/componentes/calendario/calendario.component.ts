@@ -1,13 +1,13 @@
-import { Component, signal, ChangeDetectorRef,ElementRef,ViewChild} from '@angular/core';
+import { Component, signal, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { INITIAL_EVENTS, createEventId } from './event-utils';
 
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ConsultasService } from 'src/app/servicios/consultas_service/consultas.service';
 
 
 @Component({
@@ -16,13 +16,13 @@ import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-boots
   styleUrls: ['./calendario.component.scss']
 })
 export class CalendarioComponent {
-  
-  title = 'appBootstrap';
+
   closeResult: string = '';
   @ViewChild('mymodal') mymodal: NgbModalRef | undefined;
 
+
   calendarVisible = signal(true);
-  calendarOptions = signal<CalendarOptions>({
+  calendarOptions: CalendarOptions = {
     plugins: [
       interactionPlugin,
       dayGridPlugin,
@@ -35,7 +35,7 @@ export class CalendarioComponent {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    eventDisplay: 'block',
     weekends: true,
     editable: true,
     selectable: true,
@@ -43,72 +43,77 @@ export class CalendarioComponent {
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this)
+    eventsSet: this.handleEvents.bind(this),
     /* you can update a remote database when these fire:
     eventAdd:
     eventChange:
     eventRemove:
     */
-  });
+  };
   currentEvents = signal<EventApi[]>([]);
 
   constructor(
-    private changeDetector: ChangeDetectorRef, 
-    private modalService:NgbModal) {
+    private changeDetector: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private consultaService: ConsultasService) {
   }
-  ngOnInit(): void {    
-    
-  }
-  open(content:any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-    
-  }
-  private getDismissReason(reason: any): string {
-    //console.log(this.formCita.status)
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-  handleWeekendsToggle() {
-    this.calendarOptions.mutate((options) => {
-      options.weekends = !options.weekends;
-    });
+  getAll(): any {
+    this.consultaService.getConsultas()
+      .subscribe({
+        next: (data) => {
+          this.calendarOptions.events = data.map((evt: {
+            idConsulta: any; fecha: string | number | Date; tipoConsulta: any; nombreAnimal: any; nombreCliente: any; descripcion: any;
+          }) => {
+            var fin = new Date(evt.fecha);
+            fin.setHours(fin.getHours() + 1);
+            return {
+              id: evt.idConsulta,
+              title: evt.tipoConsulta,
+              start: evt.fecha,
+              end: fin.toISOString(),
+              textColor: '#0f0f0f',
+              backgroundColor: '#ccfa05',
+              extendedProps: {
+                nombreAnimal: evt.nombreAnimal,
+                nombreCliente: evt.nombreCliente,
+              },
+              description: evt.descripcion
+            }
+          })
+        },
+        error: () => {
+          alert("Hubo un error inesperado")
+        }
+
+      });
   }
 
+
+  ngOnInit(): void {
+    this.getAll()
+  }
   handleDateSelect(selectInfo: DateSelectArg) {
-    
-    const title="aaaaaqa";
 
-    this.open(this.mymodal);
-    //console.log(this.formCita.controls['tipo'].value)
-    
+    const title = "aaaaaqa";
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
-    
+
     if (title) {
       calendarApi.addEvent({
-        id: createEventId(),
+        id: "aa1" + 1,
         title,
-        color:'#0f0f0f',
+        color: '#0f0f0f',
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         allDay: selectInfo.allDay,
         extendedProps: {
           description: 'waos'
         }
-        
+
       });
     }
-    
+
   }
 
   handleEventClick(clickInfo: EventClickArg) {

@@ -3,12 +3,13 @@ const moment = require('moment');
 const express = require('express');
 const mysql = require("mysql");
 const bodyParser = require('body-parser');
-const CryptoJS = require("crypto-js");
+const bcryptjs = require('bcryptjs')
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const app = express();
 var jsonParser = bodyParser.json();
 app.use(cors());
+
 // SECRET KEY
 const key = "ASECRET";
 const connection = mysql.createConnection({
@@ -37,12 +38,13 @@ app.listen(configuracion, () => {
 
 
 //Registra 
-app.post("/registro", jsonParser, (req, res) => {
+app.post("/registro", jsonParser, async (req, res) => {
     let nombre = req.body.nombre;
     let apellido = req.body.apellido;
     let email = req.body.email;
-    let password = CryptoJS.AES.encrypt(req.body.password, key).toString();
-    console.log("datos: " +req.body.password, password);
+    let password = req.body.password;
+    let passwordHash = await bcryptjs.hash(password, 9)
+   
     let admin = 1;
     let sql1 = `select * FROM usuario WHERE email ='${email}'`;
     connection.query(sql1, (error, results, fields) => {
@@ -50,7 +52,7 @@ app.post("/registro", jsonParser, (req, res) => {
             throw error;
         else {
             if (results == "") {
-                let sql2 = `insert into Usuario values ( '${nombre}','${apellido}','${email}','${password}', ${admin})`;
+                let sql2 = `insert into Usuario values ( '${nombre}','${apellido}','${email}','${passwordHash}', ${admin})`;
                 connection.query(sql2, function (error, results, fields) {
                     if (error)
                         throw error;
@@ -65,8 +67,10 @@ app.post("/registro", jsonParser, (req, res) => {
     });
 });
 
+
 app.get("/obtenerUsuario", jsonParser, (req, res) => {
-    connection.query("select * from usuario", function (error, results, fields) {
+    let sql = "select * from usuario"
+    connection.query(sql , function (error, results, fields) {
         if (error) {
             console.error(error);
         } else {
@@ -77,41 +81,36 @@ app.get("/obtenerUsuario", jsonParser, (req, res) => {
 //Inicia sesion de un usuario devolviendo un token de inicio de sesion
 app.post("/iniciosesion", jsonParser, (req, res) => {
     let email = req.body.email;
-    let password = req.body.password;
-    let contraEncriptada;
-    connection.query("select * from usuario where email=?", [email], function (error, results, fields) {
+    let sql1=`select * from usuario where email='${email}'`
+    connection.query(sql1, function (error, results, fields) {
         if (error)
             throw error;
         if (results == "")
-            res.json({ "id": 1 });
+            res.status(404).json({ "message": "No existe este usuario" });
         else {
-            contraEncriptada = results[0].password;
-            //console.log(password,contraEncriptada);
-            let decrypted = CryptoJS.AES.decrypt(contraEncriptada, key);
-            let contraDesencriptada = decrypted.toString(CryptoJS.enc.Utf8);
-            //console.log(password,contraDesencriptada);
-            if (contraDesencriptada != password) {
-                connection.query("select * from usuario where password=?", [password], function (error, results, fields) {
-                    if (error)
-                        throw error;
-                    if (results == "")
-                        res.json({ "id": 2 });
-                });
-            }
-            else {
-                connection.query("select * from usuario where  email=? and password=?", [email, contraEncriptada], function (error, results, fields) {
+            
+            let hashSaved=results[0].password;
+            let password = req.body.password;
+        
+            let compare = bcryptjs.compareSync(password, hashSaved);
+            if (compare) {
+                let sql2=`select * from usuario where email='${email}' and password='${hashSaved}'`
+                connection.query(sql2, function (error, results, fields) {
                     if (error)
                         throw error;
                     if (results != "") {
                         const token = jwt.sign({ id: results[0].idTipo }, 'secretkey');
-                        return res.status(200).json({ "id": 3, "token": token, "resultados": results });
+                        return res.status(200).json({ "id": 1, "token": token, "resultados": results });
                     }
                 });
+            }
+            else {
+                res.json({ "message": "Contraseña equivocada" });
             }
         }
     });
 });
-app.get("/consultas", jsonParser,(req, res) =>{
+app.get("/consultas",verifyToken ,jsonParser,(req, res) =>{
     let sql = 'select * from consulta';
     connection.query(sql, (error, results, fields) =>{
         if(error) throw error;
@@ -149,19 +148,22 @@ app.post("/agregarconsulta", jsonParser, (req, res) => {
     });
 });
 app.put('/actualizarconsulta', jsonParser,(req,res)=>{
-    
     let idConsulta =req.body.idConsulta;
     let tipoConsulta = req.body.formvalue.tipoConsulta;
     let nombreAnimal = req.body.formvalue.nombreAnimal;
 
     let aux = moment(req.body.formvalue.fecha).format("YYYY-MM-DD");
-    let fecha = aux.concat(" "+req.body.formvalue.hora.toString()+":00");     
+    console.log(req.body.formvalue.hora)
+    let fecha = aux.concat(" "+req.body.formvalue.hora+":00");     
 
     let emailVet =  req.body.formvalue.emailVet;
-    let emailCliente = req.body.formvalue.emailCliente;
-    let sql = `update Consulta set fecha='${fecha}', nombreAnimal='${nombreAnimal}', emailVet='${emailVet}',
-    emailCliente='${emailCliente}' , tipoConsulta='${tipoConsulta}' where idConsulta='${idConsulta}'`;
-
+    let nombreCliente = req.body.formvalue.nombreCliente;
+    let rutCliente = req.body.formvalue.rutCliente;
+    let descripcion = req.body.formvalue.descripcion;
+    let telefonoCliente = req.body.formvalue.telefonoCliente;
+    let sql = `update Consulta set fecha='${fecha}', nombreAnimal='${nombreAnimal}', nombreCliente='${nombreCliente}' ,
+    rutCliente='${rutCliente}' ,telefonoCliente='${telefonoCliente}' ,emailVet='${emailVet}', 
+    tipoConsulta='${tipoConsulta}',  descripcion='${descripcion}'where idConsulta='${idConsulta}'`;
     connection.query(sql, (error, results, fields) =>{
         if(error) throw error;
         else{
@@ -181,3 +183,17 @@ app.delete('/eliminarconsulta',jsonParser ,(req, res) =>{
         }
     })
 });
+
+
+function verifyToken(req,res, next){
+    if(!req.headers.authorization){
+        return res.status(401).send('Unathorized Request');
+    }
+    const token = req.headers.authorization.split(' ')[1]
+    if (token == 'null'){
+        return res.status(401).send('Unathorized Request');
+    }
+    const data = jwt.verify(token,'secretkey');
+    req.idTipo=data._id;
+    next();
+}

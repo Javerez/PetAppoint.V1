@@ -1,64 +1,12 @@
-<!-- <ng-template #mymodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
-  </div>
-
-  <div class="modal-body">
-    <form [formGroup]="formCita"  class="formulario needs-validation p-5" novalidate>
-        <div class="col-12">
-            <label class="form-label">Tipo de Consulta</label>
-            <select class="form-select" id="tipo" name="tipo" formControlName="tipo" required>
-                <option disabled selected>Seleccione una opcion</option>
-                <option value="0">Consulta Veterinaria</option>
-                <option value="1">Operacion</option>  
-            </select>
-        </div>
-        <div *ngIf="formCita.controls['tipo'].getError('required') && formCita.controls['tipo'].touched" class="col text-danger">
-            Selecione una opción
-        </div>
-
-        <br />
-        <div class="col-12">
-          <label class="form-label">Descripción</label>
-          <textarea type="descripcion" class="form-control" id="descripcion" formControlName="descripcion" cols="30" rows="5" required ></textarea>
-        </div>
-
-        <div *ngIf="formCita.controls['descripcion'].getError('maxlenght') && formCita.controls['descripcion'].touched" class="col text-danger">
-            Máximo 250 caracteres.
-        </div>
-    </form>
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      Close
-    </button>
-    <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-  </div>
-</ng-template> -->
   
   
-  
-  <div class='demo-app'>
-      <div class='demo-app-sidebar'>
-        <div class='demo-app-sidebar-section'>
-          <button class="btn btn-primary" routerLink="/home">Volver</button>
-
-          <h2>All Events ({{currentEvents.length}})</h2>
-          <ul>
-            <li *ngFor='let event of currentEvents()'>
-              <b>{{event.startStr}}</b>
-              <i>{{event.title}}</i>
-            </li>
-          </ul>
-        </div>
-      </div>
-    
+  <div class='demo-app'>          
+    <button class="btn btn-primary" routerLink="/home">Volver</button>    
       <div class='demo-app-main'>
-        <full-calendar [options]='calendarOptions()'>
+        <full-calendar #calendar [options]='calendarOptions'>
           <ng-template #eventContent let-arg>
-            <b>{{ arg.timeText }}</b>
-            <i>{{ arg.event.title }}</i>
+            <b>{{ arg.event.start | date: 'HH:mm a' }}</b>
+            <i>{{ arg.event.extendedProps.nombreAnimal }}</i>
           </ng-template>
         </full-calendar>
       </div>
