@@ -38,21 +38,21 @@ app.listen(configuracion, () => {
 
 
 //Registra 
-app.post("/registro", jsonParser, async (req, res) => {
+app.post("/registro",verifyToken, jsonParser, async (req, res) => {
     let nombre = req.body.nombre;
     let apellido = req.body.apellido;
     let email = req.body.email;
     let password = req.body.password;
     let passwordHash = await bcryptjs.hash(password, 9)
    
-    let admin = 1;
+    let admin = req.body.admin;
     let sql1 = `select * FROM usuario WHERE email ='${email}'`;
     connection.query(sql1, (error, results, fields) => {
         if (error)
             throw error;
         else {
             if (results == "") {
-                let sql2 = `insert into Usuario values ( '${nombre}','${apellido}','${email}','${passwordHash}', ${admin})`;
+                let sql2 = `insert into Usuario values ( '${nombre}','${apellido}','${email}','${passwordHash}', '${admin}')`;
                 connection.query(sql2, function (error, results, fields) {
                     if (error)
                         throw error;
@@ -68,16 +68,16 @@ app.post("/registro", jsonParser, async (req, res) => {
 });
 
 
-app.get("/obtenerUsuario", jsonParser, (req, res) => {
-    let sql = "select * from usuario"
-    connection.query(sql , function (error, results, fields) {
-        if (error) {
-            console.error(error);
-        } else {
-            res.send(JSON.stringify(results))
-        }
-    })
-})
+// app.get("/obtenerUsuario", jsonParser, (req, res) => {
+//     let sql = "select * from usuario"
+//     connection.query(sql , function (error, results, fields) {
+//         if (error) {
+//             console.error(error);
+//         } else {
+//             res.send(JSON.stringify(results))
+//         }
+//     })
+// })
 //Inicia sesion de un usuario devolviendo un token de inicio de sesion
 app.post("/iniciosesion", jsonParser, (req, res) => {
     let email = req.body.email;
@@ -99,13 +99,14 @@ app.post("/iniciosesion", jsonParser, (req, res) => {
                     if (error)
                         throw error;
                     if (results != "") {
-                        const token = jwt.sign({ id: results[0].idTipo }, 'secretkey');
-                        return res.status(200).json({ "id": 1, "token": token, "resultados": results });
+                        
+                        const token = jwt.sign({ id: results[0].admin }, 'secretkey');
+                        return res.status(200).json({"token": token});
                     }
                 });
             }
             else {
-                res.json({ "message": "Contraseña equivocada" });
+                res.status(401).json({ "message": "Contraseña equivocada" });
             }
         }
     });
@@ -119,10 +120,10 @@ app.get("/consultas",verifyToken ,jsonParser,(req, res) =>{
         }
     })
 })
-app.post("/agregarconsulta", jsonParser, (req, res) => {
+app.post("/agregarconsulta",verifyToken, jsonParser, (req, res) => {
     let tipoConsulta = req.body.tipoConsulta;
     let nombreAnimal = req.body.nombreAnimal;
-
+    
     let aux = moment(req.body.fecha).format("YYYY-MM-DD");
     let fecha = aux.concat(" "+req.body.hora.toString()+":00");     
 
@@ -147,7 +148,7 @@ app.post("/agregarconsulta", jsonParser, (req, res) => {
         }
     });
 });
-app.put('/actualizarconsulta', jsonParser,(req,res)=>{
+app.put('/actualizarconsulta',verifyToken, jsonParser,(req,res)=>{
     let idConsulta =req.body.idConsulta;
     let tipoConsulta = req.body.formvalue.tipoConsulta;
     let nombreAnimal = req.body.formvalue.nombreAnimal;
@@ -173,7 +174,7 @@ app.put('/actualizarconsulta', jsonParser,(req,res)=>{
     });
 });
 
-app.delete('/eliminarconsulta',jsonParser ,(req, res) =>{
+app.delete('/eliminarconsulta',verifyToken,jsonParser ,(req, res) =>{
     const idConsulta = req.body.idConsulta;
     let sql = `delete from Consulta where idConsulta='${idConsulta}'`;
     connection.query(sql, (error, results, fields) =>{

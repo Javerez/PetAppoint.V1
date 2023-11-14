@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'
-import { UsuarioService } from 'src/app/servicios/usuario_service/usuario.service';
+import { UsuarioService } from 'src/app/services/usuario_service/usuario.service';
 
 @Component({
   selector: 'app-registro-usuario',

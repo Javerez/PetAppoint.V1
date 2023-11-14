@@ -1,6 +1,6 @@
 import { Component, Inject, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConsultasService } from 'src/app/servicios/consultas_service/consultas.service';
+import { ConsultasService } from 'src/app/services/consultas_service/consultas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RutService } from 'rut-chileno'
 

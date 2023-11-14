@@ -33,18 +33,28 @@ export class UsuarioService {
   
   cerrarSesion(){
     localStorage.removeItem('token');
-    localStorage.removeItem('userData');
     this.router.navigate(['inicio-sesion']);
   }
-
-  obtenerRol(){
-    let data = '[' +localStorage.getItem('userData')+']';
-    var json = JSON.parse(data)
-    return(json[0].idTipo);
+  HaveAccess(){
+    var loggintoken=localStorage.getItem('token')||'';
+    var _extractedtoken=loggintoken.split('.')[1];
+    var _atobdata=atob(_extractedtoken);
+    var _finaldata=JSON.parse(_atobdata);
+    if(_finaldata.id=="D8a1;or4nIF@"){
+      return true
+    }else{
+      return false
+    }
   }
-
-  obtenerUsuario():Observable<any>{
-    return this.http.get(URL + '/obtenerUsuario');
+  obtenerRol(){
+    var loggintoken=localStorage.getItem('token')||'';
+    var _extractedtoken=loggintoken.split('.')[1];
+    var _atobdata=atob(_extractedtoken);
+    var _finaldata=JSON.parse(_atobdata);
+    return(_finaldata.id);
+  } 
+  token(){
+    return localStorage.getItem('token');
   }
 
   eliminarUsuario(data:any): Observable<any> {

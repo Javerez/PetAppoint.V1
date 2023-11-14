@@ -6,13 +6,19 @@ import { HomeComponent } from './componentes/home/home.component';
 import { RegistroUsuarioComponent } from './componentes/registro-usuario/registro-usuario.component';
 import { ConsultasComponent } from './componentes/consultas/consultas.component';
 
+import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
+
 const routes: Routes = [
   {path:"",pathMatch:"full",redirectTo:"inicio-sesion"},
-  {path:"home",component:HomeComponent},
-  {path:"registro-usuario", component:RegistroUsuarioComponent},
+  {path:"home",component:HomeComponent,canActivate:[authGuard]},
+  {path:"registro-usuario", component:RegistroUsuarioComponent,canActivate:[authGuard,roleGuard],
+  data:{
+    role:"D8a1;or4nIF@"
+  }},
   {path:"inicio-sesion",component:InicioSesionComponent},
-  {path:"calendario",component:CalendarioComponent},
-  {path:"consultas",component:ConsultasComponent}
+  {path:"calendario",component:CalendarioComponent,canActivate:[authGuard]},
+  {path:"consultas",component:ConsultasComponent,canActivate:[authGuard]}
 ];
 
 @NgModule({

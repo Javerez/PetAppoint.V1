@@ -26,7 +26,7 @@ import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http';
 //paginas
 import { InicioSesionComponent } from './componentes/inicio-sesion/inicio-sesion.component';
 import { CalendarioComponent } from './componentes/calendario/calendario.component';
@@ -37,6 +37,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgregarFechaComponent } from './componentes/agregar-fecha/agregar-fecha.component';
 //Fecha y hora
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     RegistroUsuarioComponent,
     HomeComponent,
     AgregarFechaComponent
+
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,13 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     MatTableModule,
   ],
   providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi:true
+    },
     {provide: MAT_DATE_LOCALE, useValue: 'es-CL'},
+
   ],
   bootstrap: [AppComponent]
 })

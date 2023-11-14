@@ -4,10 +4,12 @@
     <button class="btn btn-primary" routerLink="/home">Volver</button>    
       <div class='demo-app-main'>
         <full-calendar #calendar [options]='calendarOptions'>
-          <ng-template #eventContent let-arg>
-            <b>{{ arg.event.start | date: 'HH:mm a' }}</b>
+          <ng-template #eventContent let-arg >
+            <b *ngIf="!arg.event.allDay">{{ arg.event.start | date: 'HH:mm a' }}</b>
+            <b *ngIf="arg.event.allDay">{{ arg.event.title}}</b>
             <i>{{ arg.event.extendedProps.nombreAnimal }}</i>
           </ng-template>
+          
         </full-calendar>
       </div>
     

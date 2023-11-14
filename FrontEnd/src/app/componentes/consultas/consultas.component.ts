@@ -1,15 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConsultasService } from 'src/app/servicios/consultas_service/consultas.service';
+import { ConsultasService } from 'src/app/services/consultas_service/consultas.service';
+import { UsuarioService } from 'src/app/services/usuario_service/usuario.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarFechaComponent } from '../agregar-fecha/agregar-fecha.component';
 
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -29,7 +27,7 @@ export class ConsultasComponent implements OnInit {
 
   constructor(
     private consultaService: ConsultasService,
-    private router: Router,
+    private usuarioService:UsuarioService,
     private dialog: MatDialog
   ) { }
   abrirDialog() {
@@ -42,29 +40,19 @@ export class ConsultasComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    if(this.esAdmin() == true){
+    if(this.usuarioService.HaveAccess()){
       this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','nombreCliente','rutCliente','telefonoCliente','emailVet','tipoConsulta','accion'];
     }else{
       this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','nombreCliente','rutCliente','telefonoCliente','emailVet','tipoConsulta'];
     }
     this.obtenerConsultas();
   }
-  esAdmin(){
-    let user
-    const data = localStorage.getItem("userData");
-    if (data!=null){
-      user=JSON.parse(data);
-    }
-    if(user.admin==1){
-      return true;
-    }
-    else return false;
-    
-  }
+  
   obtenerConsultas(){
     this.consultaService.getConsultas()
     .subscribe({
       next:(res)=>{
+        console.log(res)
         this.dataSource = new MatTableDataSource(res)
         this.dataSource.paginator = this.paginator
         this.dataSource.sort = this.sort  
@@ -95,7 +83,6 @@ export class ConsultasComponent implements OnInit {
   }
 
   eliminarConsulta(idConsulta: any) {
-
     this.consultaService.eliminarConsulta(idConsulta).subscribe({
       next:(res)=>{
         this.obtenerConsultas();
