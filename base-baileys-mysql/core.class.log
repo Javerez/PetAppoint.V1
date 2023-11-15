@@ -1,0 +1,246 @@
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0002285AF30B8D5ED1E',
+    participant: undefined
+  },
+  messageTimestamp: 1700020136,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'hola',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'hola',
+  from: '56979929773'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_d11cdf59-a7ab-4f9f-9b45-68f3a6a0c8b6',
+  keyword: 'key_4f0f1f58-4e23-412a-a22f-558fbee071f2',
+  answer: '🙌 Bienvenido IvetMascotas',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '1dac91d624a11da4041f5c953b58f010'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_b32964ec-c960-4c97-8c55-f285f77f198f',
+  keyword: 'ans_d11cdf59-a7ab-4f9f-9b45-68f3a6a0c8b6',
+  answer: '¿Necesita consultar horarios?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '2e64bb9ea8e35bdd548694d6249a8da6'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0085C00C6EEECB86151',
+    participant: undefined
+  },
+  messageTimestamp: 1700020141,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'pero',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'pero',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB073AD3FEDBA101ED749',
+    participant: undefined
+  },
+  messageTimestamp: 1700020142,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'nya',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'nya',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0E55266A13ABC39D573',
+    participant: undefined
+  },
+  messageTimestamp: 1700020143,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'sdkhgsaf',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'sdkhgsaf',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0B8C708F9911FDCFE40',
+    participant: undefined
+  },
+  messageTimestamp: 1700020149,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: '!"#$!"#$1288945895489',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '!"#$!"#$1288945895489',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0FF7C657616CE30C4EF',
+    participant: undefined
+  },
+  messageTimestamp: 1700020151,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: '!!!!',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '!!!!',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0619F8AB3568FB031B6',
+    participant: undefined
+  },
+  messageTimestamp: 1700020155,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'jabier',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'jabier',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0343D4D2DBE590FFC76',
+    participant: undefined
+  },
+  messageTimestamp: 1700020157,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'si',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'si',
+  from: '56979929773'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_41bc4ee4-cd1d-4ca9-a109-a71c98fe55b6',
+  keyword: 'ans_b32964ec-c960-4c97-8c55-f285f77f198f',
+  answer: 'Gracias',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '2202811338e9bf62b482c6ca2ebe99b7'
+}
