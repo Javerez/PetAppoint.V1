@@ -24,16 +24,26 @@ const MYSQL_DB_PORT = '3306'
  *
  * Primero declaras los submenus 1.1 y 2.1, luego el 1 y 2 y al final el principal.
  */
-const flowPrincipal = addKeyword(['hola', 'buenos dias', 'ola']).addAnswer('🙌 Bienvenido IvetMascotas')
-    .addAnswer('¿Necesita consultar horarios?', {capture:true}, (ctx,{fallBack}) => {
+const flowPrincipal = addKeyword(['hola', 'buenos dias', 'ola', 'oe']).addAnswer('🙌 Bienvenido IvetMascotas')
+    .addAnswer('¿En que le podemos ayudar?(Escriba su elección)')
+    .addAnswer('1 Consultar horarios disponibles')
+    .addAnswer('2 Consultar hora agendada')
+    .addAnswer('3 Terminar', {capture:true}, (ctx,{fallBack}) => {
                 switch(ctx.body){
-                    case 'si' : console.log(ctx.body);break;
-                    case 'no' : fallBack(); break;
+                    case 1 : console.log(ctx.body);break;
+                    case 2 : fallBack(); break;
+                    case 3 : break;
                     default : return fallBack();
                 }
             })
     .addAnswer('Gracias')
 
+const flowConsultasAgendadas = addKeyword(['no']).addAnswer('Ingrese su rut para confirmar su hora')
+    .addAnswer('(Ej: 11.111.111-1)', {capture:true}, (ctx,{fallBack})=>{
+                if(ctx.body){
+                    return fallBack();
+                }
+            })  
 /*'👉 *Horarios* para consultar disponibilidad.',
             '--Si ya tiene una hora agendada',
             '👉 *Consulta* consultar hora agendada.',
