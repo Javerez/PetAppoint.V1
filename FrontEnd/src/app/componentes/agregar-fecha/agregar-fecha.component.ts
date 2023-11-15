@@ -14,20 +14,23 @@ export class AgregarFechaComponent {
   minDate: Date;
   maxDate: Date;
 
-  user: any
+  user : any
+
+  componenteId = 0;
 
   btnaccion: string = "Guardar"
 
-  tipo = ["Consulta veterinaria", "Cirugia esterilización","Cirugia general"]
+  tipo = ["Consulta veterinaria", "Cirugia esterilización", "Cirugia general"]
   formCita !: FormGroup;
   error_id: any;
 
+  
   constructor(
     private formBuilder: FormBuilder,
     private consultaService: ConsultasService,
     @Inject(MAT_DIALOG_DATA) public editarConsulta: any,
     private dialogRef: MatDialogRef<AgregarFechaComponent>,
-    private rutService: RutService, 
+    private rutService: RutService,
   ) {
     dialogRef.disableClose = true;
     const currentYear = new Date().getFullYear();
@@ -40,16 +43,17 @@ export class AgregarFechaComponent {
 
   ngOnInit(): void {
     this.formCita = this.formBuilder.group({
-      nombreAnimal: ['', [Validators.required, Validators.maxLength(20),Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
-      nombreCliente: ['', [Validators.required,Validators.maxLength(20),Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
-      rutCliente: ['', [Validators.required,this.rutService.validaRutForm]],
-      telefonoCliente: ['', [Validators.required,Validators.pattern("^[0-9]*$"),Validators.minLength(8)]],
+      nombreAnimal: ['', [Validators.required, Validators.maxLength(20), Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
+      nombreCliente: ['', [Validators.required, Validators.maxLength(20), Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
+      rutCliente: ['', [Validators.required, this.rutService.validaRutForm]],
+      telefonoCliente: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(8)]],
       fecha: ['', Validators.required],
       hora: ['', Validators.required],
       emailVet: ['', Validators.required],
       tipoConsulta: ['Consulta veterinaria', Validators.required],
       descripcion: ['', [Validators.maxLength(250)]],
     })
+
     if (this.editarConsulta) {
       this.btnaccion = "Actualizar"
       this.formCita.controls['nombreAnimal'].setValue(this.editarConsulta.nombreAnimal)
@@ -63,20 +67,56 @@ export class AgregarFechaComponent {
       this.formCita.controls['tipoConsulta'].setValue(this.editarConsulta.tipoConsulta)
       this.formCita.controls['descripcion'].setValue(this.editarConsulta.descripcion)
     }
+    if (typeof this.editarConsulta === 'string') {
+      this.componenteId=1
+      this.consultaService.consultaPorId(this.editarConsulta)
+        .subscribe(data => {
+          this.btnaccion = "Actualizar"
+          this.formCita.controls['nombreAnimal'].setValue(data[0].nombreAnimal)
+          this.formCita.controls['nombreCliente'].setValue(data[0].nombreCliente)
+          this.formCita.controls['rutCliente'].setValue(data[0].rutCliente)
+          this.formCita.controls['telefonoCliente'].setValue(data[0].telefonoCliente)
+          this.formCita.controls['emailVet'].setValue(data[0].emailVet)
+          this.formCita.controls['fecha'].setValue(data[0].fecha)
+          const date = new Date(data[0].fecha).toLocaleTimeString().split(":00")[0]
+          this.formCita.controls['hora'].setValue(date)
+          this.formCita.controls['tipoConsulta'].setValue(data[0].tipoConsulta)
+          this.formCita.controls['descripcion'].setValue(data[0].descripcion)
+        });
+    }
   }
-  inputEvent(event : Event) {
+  inputEvent(event: Event) {
     let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
     if (rut)
-      this.formCita.controls['rutCliente'].patchValue(rut, {emitEvent :false});
+      this.formCita.controls['rutCliente'].patchValue(rut, { emitEvent: false });
   }
-
+  eliminarConsulta() {
+    let idConsulta=this.editarConsulta
+    this.consultaService.eliminarConsulta(idConsulta).subscribe({
+      next:(res)=>{
+        this.dialogRef.close('eliminar');
+      },
+      error:()=>{
+        alert("Hubo un error eliminando")
+      }
+    });
+  }
+  actualizarConsulta() {
+    this.consultaService.actualizarConsulta(this.formCita.value, this.editarConsulta)
+      .subscribe(data => {
+        //this.error_id = data.id;
+        //console.log("id: "+this.error_id)
+        this.formCita.reset();
+        this.dialogRef.close('actualizar');
+      });
+  }
   agregar() {
     if (!this.editarConsulta) {
-      const data = localStorage.getItem("userData");
-      if (data != null) {
-        this.user = JSON.parse(data);
-      }
-      this.formCita.controls['emailVet'].setValue(this.user.email);
+      // const data = localStorage.getItem("userData");
+      // if (data != null) {
+      //   this.user = JSON.parse(data);
+      // }
+      this.formCita.controls['emailVet'].setValue("jose@example");
       if (this.formCita.valid) {
         this.consultaService.agregarConsulta(this.formCita.value)
           .subscribe(data => {
@@ -86,14 +126,8 @@ export class AgregarFechaComponent {
             this.dialogRef.close('guardar');
           });
       }
-    }else{
-      this.consultaService.actualizarConsulta(this.formCita.value, this.editarConsulta.idConsulta)
-      .subscribe(data => {
-        this.error_id = data.id;
-        //console.log("id: "+this.error_id)
-        this.formCita.reset();
-        this.dialogRef.close('actualizar');
-      });
+    } else {
+      this.actualizarConsulta();
     }
   }
 }

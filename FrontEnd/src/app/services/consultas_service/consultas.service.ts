@@ -15,6 +15,13 @@ export class ConsultasService {
   public getConsultas():Observable<any>{
     return this.http.get(URL + '/consultas');
   }
+  public consultaPorId(data : any): Observable<any> {
+    const headers = { 'content-type': 'application/json'} 
+    const body={
+      idConsulta: data
+    }
+    return this.http.post(URL + '/consultaPorId', body,{'headers':headers});
+  }
   public agregarConsulta(formvalue:any): Observable<any> {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(formvalue);
@@ -27,9 +34,9 @@ export class ConsultasService {
       formvalue,
       idConsulta: data
     }
-    console.log(body)
     return this.http.put(URL + '/actualizarconsulta', body,{'headers':headers});
   }
+  
 
   public eliminarConsulta(data:any): Observable<any> {
     const options = {

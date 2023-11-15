@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Agregar Fecha</h1>
+<h1 mat-dialog-title>{{btnaccion}} Fecha</h1>
 <div mat-dialog-content  [formGroup]="formCita">
     <br>
     <mat-form-field appearance="outline">
@@ -39,7 +39,9 @@
         <textarea rows="6" matInput formControlName="descripcion"></textarea>
       </mat-form-field>  
 </div>
+<!-- (click)="eliminarConsulta()" -->
 <div mati-dialog-action class="botones">
-    <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+    <button mat-raised-button color="warn" *ngIf="componenteId==1" (click)="eliminarConsulta()" mat-dialog-close>Borrar</button>
+    <button style="margin-left: 8px;" mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
     <button type="submit" style="margin-left: 8px;" mat-raised-button color="primary" (click)="agregar()" >{{btnaccion}}</button>
 </div>
