@@ -5,9 +5,12 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { MatInputModule } from '@angular/material/input';
 import { ConsultasService } from 'src/app/services/consultas_service/consultas.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AgregarFechaComponent } from '../agregar-fecha/agregar-fecha.component';
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -17,9 +20,12 @@ import { ConsultasService } from 'src/app/services/consultas_service/consultas.s
 })
 export class CalendarioComponent {
 
-  closeResult: string = '';
-  //@ViewChild('mymodal') mymodal: NgbModalRef | undefined;
+  minDate: any
+  maxDate: any
+  fecha: any
 
+  closeResult: string = '';
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   calendarVisible = signal(true);
   calendarOptions: CalendarOptions = {
@@ -37,7 +43,7 @@ export class CalendarioComponent {
     },
     initialView: 'dayGridMonth',
     eventDisplay: 'block',
-    weekends: true,
+    weekends: false,
     selectable: true,
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
@@ -53,26 +59,34 @@ export class CalendarioComponent {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private modalService: NgbModal,
-    private consultaService: ConsultasService) {
+    private consultaService: ConsultasService,
+    private dialog: MatDialog) {
+
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+    const currentDay = new Date().getDate();
+
+    this.minDate = new Date(currentYear, currentMonth, currentDay);
+    this.maxDate = new Date(currentYear + 3, 11, 31);
+
   }
 
-  setEndHour(fecha:any,tipoConsulta:any) {
+  setEndHour(fecha: any, tipoConsulta: any) {
     var fin = new Date(fecha);
-    
+
     switch (tipoConsulta) {
       case "Cirugia general": {
         var fin = new Date();
-        return fin.toISOString(),true;
+        return fin.toISOString(), true;
       }
       case "Consulta veterinaria": {
         fin.setHours(fin.getMinutes() + 30);
-        return fin.toISOString(),false;
+        return fin.toISOString(), false;
       }
-      default:{
+      default: {
         fin.setHours(fin.getHours() + 1);
-        return fin.toISOString(),false;
-      } 
+        return fin.toISOString(), false;
+      }
     }
   }
   setColor(tipoConsulta: any) {
@@ -83,14 +97,14 @@ export class CalendarioComponent {
     }
   }
 
-  getAll(): any {
+  obtenerConsultas(): any {
     this.consultaService.getConsultas()
       .subscribe({
         next: (data) => {
           this.calendarOptions.events = data.map((evt: {
             idConsulta: any; fecha: string | number | Date; tipoConsulta: any; nombreAnimal: any; nombreCliente: any; descripcion: any;
           }) => {
-            var fin,evento = this.setEndHour(evt.fecha,evt.tipoConsulta);
+            var fin, evento = this.setEndHour(evt.fecha, evt.tipoConsulta);
             let color = this.setColor(evt.tipoConsulta);
             return {
               id: evt.idConsulta,
@@ -99,7 +113,7 @@ export class CalendarioComponent {
               end: fin,
               textColor: '#0f0f0f',
               backgroundColor: color,
-              allDay:evento,
+              allDay: evento,
               extendedProps: {
                 nombreAnimal: evt.nombreAnimal,
                 nombreCliente: evt.nombreCliente,
@@ -115,41 +129,58 @@ export class CalendarioComponent {
       });
   }
   ngOnInit(): void {
-    this.getAll()
+    this.obtenerConsultas()
   }
   handleDateSelect(selectInfo: DateSelectArg) {
 
-    const title = "aaaaaqa";
-    const calendarApi = selectInfo.view.calendar;
+    const currentDate = new Date();
+    const selectedDate = selectInfo.start;
+    currentDate.setHours(0, 0, 0, 0);
+    selectedDate.setHours(0, 0, 0, 0);
 
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      calendarApi.addEvent({
-        id: "aa1" + 1,
-        title,
-        color: '#0f0f0f',
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-        extendedProps: {
-          description: 'waos'
+    if (currentDate.getTime() <= selectedDate.getTime()) {
+      //console.log(currentDate.getTime(),selectedDate.getTime())
+      this.dialog.open(AgregarFechaComponent, {
+        width: '30%'
+      }).afterClosed().subscribe(val => {
+        if (val == 'guardar') {
+          this.obtenerConsultas();
         }
-
       });
     }
 
+    const calendarApi = selectInfo.view.calendar;
+    calendarApi.unselect(); // clear date selection
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    console.log(clickInfo.event.extendedProps['description'])
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    this.dialog.open(AgregarFechaComponent, {
+      width: '30%',
+      data: clickInfo.event['id']
+    }).afterClosed().subscribe(val => {
+      if (val == 'actualizar' || val == 'eliminar') {
+        this.obtenerConsultas();
+      }
+    });
   }
 
   handleEvents(events: EventApi[]) {
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
+  }
+  buscarFecha(event: MatDatepickerInputEvent<Date>) {
+    const date =event.value
+    let calendarApi = this.calendarComponent.getApi();
+    const year = date?.getFullYear();
+    let month = date?.getMonth();
+    month!+=1
+    const day = date?.getDate();
+
+    const date2 =`${year}-${month}-${day}`;
+
+    if (date != null) {
+      //console.log(date2);
+      calendarApi.gotoDate(date2);
+    }
   }
 }

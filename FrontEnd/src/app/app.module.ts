@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule} from '@angular/material/radio'; 
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table'; 
 
@@ -73,6 +74,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     BrowserAnimationsModule,
     MatPaginatorModule,
     MatTableModule,
+    MatSlideToggleModule,
   ],
   providers: [
     {

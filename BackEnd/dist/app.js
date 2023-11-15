@@ -66,8 +66,6 @@ app.post("/registro",verifyToken, jsonParser, async (req, res) => {
         }
     });
 });
-
-
 // app.get("/obtenerUsuario", jsonParser, (req, res) => {
 //     let sql = "select * from usuario"
 //     connection.query(sql , function (error, results, fields) {
@@ -78,6 +76,7 @@ app.post("/registro",verifyToken, jsonParser, async (req, res) => {
 //         }
 //     })
 // })
+
 //Inicia sesion de un usuario devolviendo un token de inicio de sesion
 app.post("/iniciosesion", jsonParser, (req, res) => {
     let email = req.body.email;
@@ -117,6 +116,16 @@ app.get("/consultas",verifyToken ,jsonParser,(req, res) =>{
         if(error) throw error;
         else{
             res.json(results);
+        }
+    })
+})
+app.post("/consultaPorId",verifyToken ,jsonParser,(req, res) =>{
+    let idConsulta =req.body.idConsulta;
+    let sql = `select * from consulta where idConsulta='${idConsulta}'`;
+    connection.query(sql, (error, results, fields) =>{
+        if(error) throw error;
+        else{
+            res.status(200).json(results);
         }
     })
 })
@@ -173,7 +182,6 @@ app.put('/actualizarconsulta',verifyToken, jsonParser,(req,res)=>{
         }
     });
 });
-
 app.delete('/eliminarconsulta',verifyToken,jsonParser ,(req, res) =>{
     const idConsulta = req.body.idConsulta;
     let sql = `delete from Consulta where idConsulta='${idConsulta}'`;
@@ -184,7 +192,6 @@ app.delete('/eliminarconsulta',verifyToken,jsonParser ,(req, res) =>{
         }
     })
 });
-
 
 function verifyToken(req,res, next){
     if(!req.headers.authorization){

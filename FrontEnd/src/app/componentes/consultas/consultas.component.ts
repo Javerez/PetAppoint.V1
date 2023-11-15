@@ -5,9 +5,10 @@ import { UsuarioService } from 'src/app/services/usuario_service/usuario.service
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarFechaComponent } from '../agregar-fecha/agregar-fecha.component';
 
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 
@@ -24,59 +25,68 @@ export class ConsultasComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  minDate: any;
+  maxDate: any;
 
   constructor(
     private consultaService: ConsultasService,
-    private usuarioService:UsuarioService,
+    private usuarioService: UsuarioService,
     private dialog: MatDialog
-  ) { }
+  ) {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+    const currentDay = new Date().getDate();
+
+    this.minDate = new Date(currentYear, currentMonth, currentDay);
+    this.maxDate = new Date(currentYear + 3, 11, 31);
+  }
   abrirDialog() {
     this.dialog.open(AgregarFechaComponent, {
       width: '30%'
-    }).afterClosed().subscribe(val=>{
-      if(val=='guardar'){
+    }).afterClosed().subscribe(val => {
+      if (val == 'guardar') {
         this.obtenerConsultas();
       }
     });
   }
   ngOnInit(): void {
-    if(this.usuarioService.HaveAccess()){
-      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','nombreCliente','rutCliente','telefonoCliente','emailVet','tipoConsulta','accion'];
-    }else{
-      this.displayedColumns = ['idConsulta', 'fecha','nombreAnimal','nombreCliente','rutCliente','telefonoCliente','emailVet','tipoConsulta'];
+    if (this.usuarioService.HaveAccess()) {
+      this.displayedColumns = ['idConsulta', 'fecha', 'nombreAnimal', 'nombreCliente', 'rutCliente', 'telefonoCliente', 'emailVet', 'tipoConsulta', 'accion'];
+    } else {
+      this.displayedColumns = ['idConsulta', 'fecha', 'nombreAnimal', 'nombreCliente', 'rutCliente', 'telefonoCliente', 'emailVet', 'tipoConsulta'];
     }
     this.obtenerConsultas();
   }
-  
-  obtenerConsultas(){
+
+  obtenerConsultas() {
     this.consultaService.getConsultas()
-    .subscribe({
-      next:(res)=>{
-        console.log(res)
-        this.dataSource = new MatTableDataSource(res)
-        this.dataSource.paginator = this.paginator
-        this.dataSource.sort = this.sort  
-      },
-      error:()=>{
-        alert("Hubo un error inesperado")
-      }
-        
+      .subscribe({
+        next: (res) => {
+          this.dataSource = new MatTableDataSource(res)
+          this.dataSource.paginator = this.paginator
+          this.dataSource.sort = this.sort
+        },
+        error: () => {
+          alert("Hubo un error inesperado")
+        }
+
       });
   }
-  editarConsulta(row : any){
+  editarConsulta(row: any) {
     this.dialog.open(AgregarFechaComponent, {
       width: '30%',
-      data:row
-    }).afterClosed().subscribe(val=>{
-      if(val=='actualizar'){
+      data: row
+    }).afterClosed().subscribe(val => {
+      if (val == 'actualizar') {
         this.obtenerConsultas();
       }
     });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    //console.log(filterValue.trim().toLowerCase())
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    //console.log(this.dataSource)
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -84,13 +94,27 @@ export class ConsultasComponent implements OnInit {
 
   eliminarConsulta(idConsulta: any) {
     this.consultaService.eliminarConsulta(idConsulta).subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.obtenerConsultas();
       },
-      error:()=>{
+      error: () => {
         alert("Hubo un error eliminando")
       }
     });
   }
+  buscarFecha(event: MatDatepickerInputEvent<Date>) {
+    let date :any
+    date = event.value?.toISOString()
+    // const year = date?.getFullYear();
+    // let month = date?.getMonth();
+    // month! += 1
+    // const day = date?.getDate();
 
+    // const date2 = `${year}-${month}-${day}`;
+    console.log(date)
+    this.dataSource.filter = date.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }
