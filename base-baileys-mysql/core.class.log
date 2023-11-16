@@ -2,19 +2,162 @@
   key: {
     remoteJid: '56979929773@s.whatsapp.net',
     fromMe: false,
-    id: 'F00EE5A4D5300415927D0011D817842D',
+    id: '3EB06B782AF5FD20C8EB7C',
     participant: undefined
   },
-  messageTimestamp: 1700057762,
+  messageTimestamp: 1700116013,
   pushName: 'Lucas:D',
   broadcast: false,
   message: Message {
-    conversation: 'Llegue',
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'hola',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2
     }
   },
-  body: 'Llegue',
+  body: 'hola',
+  from: '56979929773'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_69033311-3ea5-4558-bfc2-5699c00bfe0c',
+  keyword: 'key_9bf27048-8d1d-4a74-9c0d-a1ae0502465c',
+  answer: '🙌 Bienvenido IvetMascotas\n' +
+    '¿En que le podemos ayudar?\n' +
+    'Escriba el número de acuerdo a tu consulta\n' +
+    '1 Agendar consulta\n' +
+    '2 Consultar hora agendada\n' +
+    '3 Terminar',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'c59fa52c89d742edd6805b3eca22a0bb'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0271FC3D8AD62039096',
+    participant: undefined
+  },
+  messageTimestamp: 1700116015,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: '1',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '1',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0645AAFDC1F244CF8EE',
+    participant: undefined
+  },
+  messageTimestamp: 1700116018,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'okey',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'okey',
+  from: '56979929773'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_0e2f19b6-341e-405f-b988-cf93ad594e8e',
+  keyword: 'ans_fa9152a8-15e9-44d7-808b-e6a809ce9574',
+  answer: 'Escriba su datos de la siguiente manera\n' +
+    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
+    'Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866.2 945342322',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'f46094d093f29c657e8d580bedb020e8'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0A3F6F328B419C740D2',
+    participant: undefined
+  },
+  messageTimestamp: 1700116020,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: '2023-12-12 10:30:00 pedritosas Juamsillo 20.981.200-2 997428809',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '2023-12-12 10:30:00 pedritosas Juamsillo 20.981.200-2 997428809',
+  from: '56979929773'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56979929773@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB008F141F77E16A4A4C3',
+    participant: undefined
+  },
+  messageTimestamp: 1700116031,
+  pushName: 'Lucas:D',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: '3',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '3',
   from: '56979929773'
 }
