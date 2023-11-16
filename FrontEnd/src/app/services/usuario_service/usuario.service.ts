@@ -18,13 +18,13 @@ export class UsuarioService {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(formvalue);
     console.log(body)
-    return this.http.post(URL + '/registro', body,{'headers':headers});
+    return this.http.post(URL + '/api/registro', body,{'headers':headers});
   }
 
   inicioSesionUsuario(formvalue:any): Observable<any> {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(formvalue);
-    return this.http.post(URL + '/iniciosesion', body,{'headers':headers});
+    return this.http.post(URL + '/api/iniciosesion', body,{'headers':headers});
   }
   
   estaLogeado(){
@@ -66,6 +66,6 @@ export class UsuarioService {
         email: data
       },
     };
-    return this.http.delete(URL + '/eliminarusuario',options);
+    return this.http.delete(URL + '/api/eliminarusuario',options);
   }
 }

@@ -183,4 +183,9 @@ export class CalendarioComponent {
       calendarApi.gotoDate(date2);
     }
   }
+  noWeekends = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
+  };
+  
 }

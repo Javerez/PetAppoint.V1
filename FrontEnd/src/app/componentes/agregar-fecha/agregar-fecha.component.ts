@@ -130,4 +130,8 @@ export class AgregarFechaComponent {
       this.actualizarConsulta();
     }
   }
+  noWeekends = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
+  };
 }

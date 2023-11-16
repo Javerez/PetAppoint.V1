@@ -35,7 +35,7 @@ export class InicioSesionComponent {
         Validators.required,
         Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)
       ])],
-      recaptcha: ['',Validators.required]
+      //recaptcha: ['',Validators.required]
     }
     this.formInicioSesion = this.formBuilder.group(formulario);
     this.siteKey = "6LcCcJkmAAAAAM8lZ_jL7MZeSOI1iKd4exAu2wI1";
@@ -47,6 +47,7 @@ export class InicioSesionComponent {
   
   iniciarSesion() {
     if (this.formInicioSesion.status === 'VALID') {
+      console.log(this.formInicioSesion.value)
       this.usuarioService.inicioSesionUsuario(this.formInicioSesion.value).subscribe(
         data => {
           localStorage.setItem('token',data.token);
