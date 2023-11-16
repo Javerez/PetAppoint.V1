@@ -9,39 +9,49 @@ import { UsuarioService } from 'src/app/services/usuario_service/usuario.service
   styleUrls: ['./registro-usuario.component.scss']
 })
 export class RegistroUsuarioComponent {
-  
+  formRegistroUsuario!: FormGroup;
   buttonClicked!: boolean;
   public captchaResolved: boolean = false;
   public siteKey: any;
   error_id: any;
-
+  admin:any
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private usuarioService: UsuarioService
   ) { }
 
-  formRegistroUsuario!: FormGroup;
-
   ngOnInit(): void {
     this.buttonClicked = false;
     this.captchaResolved = false;
 
-    this.formRegistroUsuario = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.maxLength(20), Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
-      apellido: ['', [Validators.required, Validators.maxLength(20), Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)]],
-      email: ['',[Validators.required,Validators.email]],
-      password: ['', [Validators.required,Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)]],
-      admin: ['', Validators.required],
-      recaptcha: ['', Validators.required]
-    })
-    this.siteKey = "6LcCcJkmAAAAAM8lZ_jL7MZeSOI1iKd4exAu2wI1";
+    let formulario = {
+      nombre: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)
+      ])],
+      apellido: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)
+      ])],
+      email: ['', Validators.compose([
+        Validators.required,
+        Validators.email
+      ])],
+      password: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)
+      ])],
+      admin: ['', Validators.required]
+    }
+    this.formRegistroUsuario = this.formBuilder.group(formulario);
+    //this.siteKey = "6LcCcJkmAAAAAM8lZ_jL7MZeSOI1iKd4exAu2wI1";
 
   }
 
-  checkCaptcha(captchaResponse: string) {
-    this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
-  }
+  // checkCaptcha(captchaResponse: string) {
+  //   this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
+  // }
 
 
 

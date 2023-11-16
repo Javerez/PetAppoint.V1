@@ -1,16 +1,21 @@
 <section>
   <div class="px-4 py-5 px-md-5 text-center text-lg-start">
     <div class="card py-5 px-md-5 text-center">
-      <mat-form-field>
-        <mat-label>Filtro de Busqueda</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Sanson" #input>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Elige una fecha</mat-label>
-        <input (dateInput)="buscarFecha($event)"  [min]="minDate" [max]="maxDate" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+      <div class="container">
+        <mat-form-field id="filtro_1">
+          <mat-label>Filtro de Busqueda</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Sanson" #input>
+        </mat-form-field>
+        <mat-form-field appearance="outline"  id="filtro_2">
+          <mat-label>Filtro por Fecha</mat-label>
+          <input (dateInput)="buscarFecha($event)" [matDatepickerFilter]="noWeekends" [min]="minDate" [max]="maxDate" 
+          matInput [matDatepicker]="picker" disabled>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button color="primary"(click)="limpiar($event)" id="clear">Limpiar</button>
+      </div>
+      
       <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
       

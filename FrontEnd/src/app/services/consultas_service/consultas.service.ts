@@ -13,19 +13,19 @@ export class ConsultasService {
       
   }
   public getConsultas():Observable<any>{
-    return this.http.get(URL + '/consultas');
+    return this.http.get(URL + '/api/consultas');
   }
   public consultaPorId(data : any): Observable<any> {
     const headers = { 'content-type': 'application/json'} 
     const body={
       idConsulta: data
     }
-    return this.http.post(URL + '/consultaPorId', body,{'headers':headers});
+    return this.http.post(URL + '/api/consultaPorId', body,{'headers':headers});
   }
   public agregarConsulta(formvalue:any): Observable<any> {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(formvalue);
-    return this.http.post(URL + '/agregarconsulta', body,{'headers':headers});
+    return this.http.post(URL + '/api/agregarconsulta', body,{'headers':headers});
   }
 
   public actualizarConsulta(formvalue:any, data : number): Observable<any> {
@@ -34,7 +34,7 @@ export class ConsultasService {
       formvalue,
       idConsulta: data
     }
-    return this.http.put(URL + '/actualizarconsulta', body,{'headers':headers});
+    return this.http.put(URL + '/api/actualizarconsulta', body,{'headers':headers});
   }
   
 
@@ -47,6 +47,6 @@ export class ConsultasService {
         idConsulta: data
       },
     };
-    return this.http.delete(URL + '/eliminarconsulta',options);
+    return this.http.delete(URL + '/api/eliminarconsulta',options);
   }
 }

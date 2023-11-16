@@ -103,18 +103,23 @@ export class ConsultasComponent implements OnInit {
     });
   }
   buscarFecha(event: MatDatepickerInputEvent<Date>) {
-    let date :any
-    date = event.value?.toISOString()
-    // const year = date?.getFullYear();
-    // let month = date?.getMonth();
-    // month! += 1
-    // const day = date?.getDate();
+    const date =event.value
+    const year = date?.getFullYear();
+    let month = date?.getMonth();
+    month!+=1
+    const day = date?.getDate();
+    const date2 =`${year}-${month}-${day}`;
 
-    // const date2 = `${year}-${month}-${day}`;
-    console.log(date)
-    this.dataSource.filter = date.trim().toLowerCase();
+    this.dataSource.filter = date2.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  noWeekends = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
+  };
+  limpiar(event: any){
+    this.dataSource.filter=""
   }
 }
