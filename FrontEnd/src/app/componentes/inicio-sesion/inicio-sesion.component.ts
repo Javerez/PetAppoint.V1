@@ -50,10 +50,16 @@ export class InicioSesionComponent {
       console.log(this.formInicioSesion.value)
       this.usuarioService.inicioSesionUsuario(this.formInicioSesion.value).subscribe(
         data => {
-          localStorage.setItem('token',data.token);
-          this.router.navigate(['home']);
+          console.log(data.id)
+
+          this.error_id=data.id
+          if (this.error_id==1){
+            localStorage.setItem('token',data.token);
+            this.router.navigate(['home']);
+          }
+          
         },error=>{
-          console.log(error.status)
+          console.log(error)
         }
         );
     }

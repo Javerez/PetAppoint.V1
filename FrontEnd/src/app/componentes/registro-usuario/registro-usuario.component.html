@@ -3,13 +3,13 @@
         <!--CONTENEDOR-->
         <div class="container-fluid p-0">
             <h1 class="pt-3">Registro Veterinario</h1>
-            <!-- MENSAJES DESDE BACKEND -->
-            <div *ngIf="error_id==1" class="alert alert-danger" role="alert">
-                La cuenta con este email no existe
+            <div class="container-alert">
+                <!-- MENSAJES DESDE BACKEND -->
+                <div *ngIf="error_id==2" class="alert alert-danger" role="alert">
+                    Este email ya se encuentra registrado
+                </div>
             </div>
-            <div *ngIf="error_id==2" class="alert alert-danger" role="alert">
-                Contraseña Incorrecta
-            </div>
+            
             <!--FORMULARIO-->
             <form #form="ngForm" [formGroup]="formRegistroUsuario" (ngSubmit)="register()"
                 class="formulario needs-validation p-3 text-center" novalidate>
@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <mat-slide-toggle>Administrador</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="admin">Administrador</mat-slide-toggle>
                     </div>
                 </div>
 
@@ -110,21 +110,23 @@
                 <!-- <div class="form-group row">
                     <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha"
                         (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
-                </div> -->
+                </div> [disabled]="!captchaResolved"-->
 
                 <br />
 
-                <div class="form-group row">
-                    <div class="col-4">
+                <!-- <div class="form-group row">
+                    
+                </div> -->
+                <div class="botones">
+                    <div class="col-4 volver">
                         <button class="btn btn-primary" routerLink="/home">Atras</button>
                     </div>
-                    <div class="col-4 col-md-4">
-                        <button [disabled]="!captchaResolved" type="submit"
-                            class="btn btn-primary">Siguiente</button>
+                    <div class="col-4 col-md-4 siguiente">
+                        <button type="submit"class="btn btn-primary">Registrar</button>
                     </div>
                 </div>
-
             </form>
+            
         </div>
     </div>
 </section>

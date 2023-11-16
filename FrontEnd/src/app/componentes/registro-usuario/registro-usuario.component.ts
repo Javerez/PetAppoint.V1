@@ -14,7 +14,7 @@ export class RegistroUsuarioComponent {
   public captchaResolved: boolean = false;
   public siteKey: any;
   error_id: any;
-  admin:any
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -42,7 +42,7 @@ export class RegistroUsuarioComponent {
         Validators.required,
         Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)
       ])],
-      admin: ['', Validators.required]
+      admin: [false, Validators.required]
     }
     this.formRegistroUsuario = this.formBuilder.group(formulario);
     //this.siteKey = "6LcCcJkmAAAAAM8lZ_jL7MZeSOI1iKd4exAu2wI1";
@@ -53,14 +53,13 @@ export class RegistroUsuarioComponent {
   //   this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
   // }
 
-
-
   register() {
+
     if (this.formRegistroUsuario.status === 'VALID') {
       this.usuarioService.registroUsuario(this.formRegistroUsuario.value).subscribe(data => {
         this.error_id = data.id;
         console.log("id: " + data.id);
-        if (this.error_id == 1) this.router.navigate(['consultas']);
+        if (this.error_id == 1) this.router.navigate(['home']);
       });
     }
   }

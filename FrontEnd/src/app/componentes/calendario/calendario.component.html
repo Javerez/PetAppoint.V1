@@ -1,8 +1,8 @@
 <section>
   <div class="px-4 py-5 px-md-5 text-center text-lg-start">
     <div class="card px-4 py-5 px-md-5 text-center">
-      <div class="container">
-        <button class="btn btn-primary" routerLink="/home">Volver</button>
+      <div class="container-inputs">
+        <button class="btn btn-primary" routerLink="/home">Volver Home</button>
         <mat-form-field appearance="outline">
           <mat-label>Elige una fecha</mat-label>
           <input (dateInput)="buscarFecha($event)" [matDatepickerFilter]="noWeekends" [min]="minDate" [max]="maxDate"

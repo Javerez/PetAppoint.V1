@@ -37,15 +37,17 @@ router.post("/registro",verifyToken, jsonParser, async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
     let passwordHash = await bcryptjs.hash(password, 9)
-   
-    let admin = req.body.admin;
+    let admin
+    let aux = req.body.admin;
+    if(aux=true) admin='D8a1;or4nIF@'
+    else admin='Ve93*8#,hf)4'
     let sql1 = `select * FROM usuario WHERE email ='${email}'`;
     connection.query(sql1, (error, results, fields) => {
         if (error)
             throw error;
         else {
             if (results == "") {
-                let sql2 = `insert into Usuario values ( '${nombre}','${apellido}','${email}','${passwordHash}', '${admin}')`;
+                let sql2 = `insert into usuario values ( '${nombre}','${apellido}','${email}','${passwordHash}', '${admin}')`;
                 connection.query(sql2, function (error, results, fields) {
                     if (error)
                         throw error;
@@ -63,17 +65,15 @@ router.post("/registro",verifyToken, jsonParser, async (req, res) => {
 router.post("/iniciosesion", jsonParser, (req, res) => {
     let email = req.body.email;
     let sql1=`select * from usuario where email='${email}'`
-    console.log("hola")
     connection.query(sql1, function (error, results, fields) {
         if (error)
             throw error;
         if (results == "")
-            res.status(404).json({ "message": "No existe este usuario" });
+            res.json({ "id": 3 ,"message": "No existe este usuario" });
         else {
             
             let hashSaved=results[0].password;
             let password = req.body.password;
-            console.log("holaV2")
             let compare = bcryptjs.compareSync(password, hashSaved);
             if (compare) {
                 let sql2=`select * from usuario where email='${email}' and password='${hashSaved}'`
@@ -83,12 +83,12 @@ router.post("/iniciosesion", jsonParser, (req, res) => {
                     if (results != "") {
                         console.log("holaV3")
                         const token = jwt.sign({ id: results[0].admin }, 'secretkey');
-                        return res.status(200).json({"token": token});
+                        return res.status(200).json({"id": 1,"token": token});
                     }
                 });
             }
             else {
-                res.status(401).json({ "message": "Contraseña equivocada" });
+                res.json({ "id": 2 , "message": "Contraseña equivocada" });
             }
         }
     });
@@ -175,16 +175,6 @@ router.delete('/eliminarconsulta',verifyToken,jsonParser ,(req, res) =>{
         }
     })
 });
-
-router.get("/getall" ,jsonParser,(req, res) =>{
-    let sql = 'select * from consulta';
-    connection.query(sql, (error, results, fields) =>{
-        if(error) throw error;
-        else{
-            res.json(results);
-        }
-    })
-})
 module.exports = router;
 
 function verifyToken(req,res, next){

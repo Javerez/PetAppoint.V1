@@ -22,3 +22,22 @@ button{
 .card{
     width: 35%;
 }
+.form-group{
+    margin-bottom: 10px;
+
+}
+.botones{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.siguiente{
+    margin-left: 5vh;
+}
+.alert{
+    width: 80%
+}
+.container-alert{
+    display: flex;
+    justify-content: center;
+}
