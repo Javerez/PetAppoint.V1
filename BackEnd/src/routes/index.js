@@ -81,7 +81,6 @@ router.post("/iniciosesion", jsonParser, (req, res) => {
                     if (error)
                         throw error;
                     if (results != "") {
-                        console.log("holaV3")
                         const token = jwt.sign({ id: results[0].admin }, 'secretkey');
                         return res.status(200).json({"id": 1,"token": token});
                     }
@@ -142,18 +141,17 @@ router.post("/agregarconsulta",verifyToken, jsonParser, (req, res) => {
 });
 router.put('/actualizarconsulta',verifyToken, jsonParser,(req,res)=>{
     let idConsulta =req.body.idConsulta;
-    let tipoConsulta = req.body.formvalue.tipoConsulta;
-    let nombreAnimal = req.body.formvalue.nombreAnimal;
+    let tipoConsulta = req.body.data.tipoConsulta;
+    let nombreAnimal = req.body.data.nombreAnimal;
 
-    let aux = moment(req.body.formvalue.fecha).format("YYYY-MM-DD");
-    console.log(req.body.formvalue.hora)
-    let fecha = aux.concat(" "+req.body.formvalue.hora+":00");     
+    let aux = moment(req.body.data.fecha).format("YYYY-MM-DD");
+    let fecha = aux.concat(" "+req.body.data.hora+":00");     
 
-    let emailVet =  req.body.formvalue.emailVet;
-    let nombreCliente = req.body.formvalue.nombreCliente;
-    let rutCliente = req.body.formvalue.rutCliente;
-    let descripcion = req.body.formvalue.descripcion;
-    let telefonoCliente = req.body.formvalue.telefonoCliente;
+    let emailVet =  req.body.data.emailVet;
+    let nombreCliente = req.body.data.nombreCliente;
+    let rutCliente = req.body.data.rutCliente;
+    let descripcion = req.body.data.descripcion;
+    let telefonoCliente = req.body.data.telefonoCliente;
     let sql = `update Consulta set fecha='${fecha}', nombreAnimal='${nombreAnimal}', nombreCliente='${nombreCliente}' ,
     rutCliente='${rutCliente}' ,telefonoCliente='${telefonoCliente}' ,emailVet='${emailVet}', 
     tipoConsulta='${tipoConsulta}',  descripcion='${descripcion}'where idConsulta='${idConsulta}'`;

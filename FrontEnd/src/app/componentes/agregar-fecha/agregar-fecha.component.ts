@@ -14,7 +14,7 @@ export class AgregarFechaComponent {
   minDate: Date;
   maxDate: Date;
 
-  user : any
+  user: any
 
   componenteId = 0;
 
@@ -24,7 +24,7 @@ export class AgregarFechaComponent {
   formCita !: FormGroup;
   error_id: any;
 
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private consultaService: ConsultasService,
@@ -53,7 +53,7 @@ export class AgregarFechaComponent {
       tipoConsulta: ['Consulta veterinaria', Validators.required],
       descripcion: ['', [Validators.maxLength(250)]],
     })
-
+    //Entra desde la tabla de consultas, para actualizar una cita
     if (this.editarConsulta) {
       this.btnaccion = "Actualizar"
       this.formCita.controls['nombreAnimal'].setValue(this.editarConsulta.nombreAnimal)
@@ -62,13 +62,14 @@ export class AgregarFechaComponent {
       this.formCita.controls['telefonoCliente'].setValue(this.editarConsulta.telefonoCliente)
       this.formCita.controls['emailVet'].setValue(this.editarConsulta.emailVet)
       this.formCita.controls['fecha'].setValue(this.editarConsulta.fecha)
-      const date = new Date(this.editarConsulta.fecha).toLocaleTimeString().split(":00")[0]
-      this.formCita.controls['hora'].setValue(date)
+      const hora = new Date(this.editarConsulta.fecha).toLocaleTimeString().replace(':00', '')
+      this.formCita.controls['hora'].setValue(hora)
       this.formCita.controls['tipoConsulta'].setValue(this.editarConsulta.tipoConsulta)
       this.formCita.controls['descripcion'].setValue(this.editarConsulta.descripcion)
     }
+    //Entra desde el calendario, para actualizar una cita
     if (typeof this.editarConsulta === 'string') {
-      this.componenteId=1
+      this.componenteId = 1
       this.consultaService.consultaPorId(this.editarConsulta)
         .subscribe(data => {
           this.btnaccion = "Actualizar"
@@ -78,11 +79,22 @@ export class AgregarFechaComponent {
           this.formCita.controls['telefonoCliente'].setValue(data[0].telefonoCliente)
           this.formCita.controls['emailVet'].setValue(data[0].emailVet)
           this.formCita.controls['fecha'].setValue(data[0].fecha)
-          const date = new Date(data[0].fecha).toLocaleTimeString().split(":00")[0]
-          this.formCita.controls['hora'].setValue(date)
+          const hora = new Date(data[0].fecha).toLocaleTimeString().replace(':00', '')
+          this.formCita.controls['hora'].setValue(hora)
           this.formCita.controls['tipoConsulta'].setValue(data[0].tipoConsulta)
           this.formCita.controls['descripcion'].setValue(data[0].descripcion)
         });
+    }
+    //Entra desde el calendario, para guardar una nueva cita
+    if (this.editarConsulta instanceof Array) {
+      this.btnaccion = "Guardar"
+      this.formCita.controls['fecha'].setValue(this.editarConsulta[0])
+      //Si se saca esta posicion, la hora por defecto son las 21:00 hrs que no se muestran en el calendario
+      if (this.editarConsulta[1]=='21:00:00')this.editarConsulta[1]="12:00:00"
+      const hora = this.editarConsulta[1].replace(':00', '')
+      this.formCita.controls['hora'].setValue(hora)
+      this.formCita.controls['tipoConsulta'].setValue('Consulta veterinaria')
+
     }
   }
   inputEvent(event: Event) {
@@ -91,12 +103,12 @@ export class AgregarFechaComponent {
       this.formCita.controls['rutCliente'].patchValue(rut, { emitEvent: false });
   }
   eliminarConsulta() {
-    let idConsulta=this.editarConsulta
+    let idConsulta = this.editarConsulta
     this.consultaService.eliminarConsulta(idConsulta).subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.dialogRef.close('eliminar');
       },
-      error:()=>{
+      error: () => {
         alert("Hubo un error eliminando")
       }
     });
@@ -104,29 +116,22 @@ export class AgregarFechaComponent {
   actualizarConsulta() {
     this.consultaService.actualizarConsulta(this.formCita.value, this.editarConsulta)
       .subscribe(data => {
-        //this.error_id = data.id;
-        //console.log("id: "+this.error_id)
         this.formCita.reset();
         this.dialogRef.close('actualizar');
       });
   }
   agregar() {
-    if (!this.editarConsulta) {
-      // const data = localStorage.getItem("userData");
-      // if (data != null) {
-      //   this.user = JSON.parse(data);
-      // }
+    if (!this.editarConsulta || this.editarConsulta instanceof Array) {
       this.formCita.controls['emailVet'].setValue("jose@example");
       if (this.formCita.valid) {
         this.consultaService.agregarConsulta(this.formCita.value)
           .subscribe(data => {
             this.error_id = data.id;
-            //console.log("id: "+this.error_id)
             this.formCita.reset();
             this.dialogRef.close('guardar');
           });
       }
-    } else {
+    }else {
       this.actualizarConsulta();
     }
   }

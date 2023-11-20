@@ -47,13 +47,14 @@ export class InicioSesionComponent {
   
   iniciarSesion() {
     if (this.formInicioSesion.status === 'VALID') {
-      console.log(this.formInicioSesion.value)
+      
       this.usuarioService.inicioSesionUsuario(this.formInicioSesion.value).subscribe(
         data => {
-          console.log(data.id)
 
           this.error_id=data.id
           if (this.error_id==1){
+            console.log(data.token)
+
             localStorage.setItem('token',data.token);
             this.router.navigate(['home']);
           }

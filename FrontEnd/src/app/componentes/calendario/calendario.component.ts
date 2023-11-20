@@ -24,7 +24,6 @@ export class CalendarioComponent {
   maxDate: any
   fecha: any
 
-  closeResult: string = '';
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   calendarVisible = signal(true);
@@ -41,6 +40,7 @@ export class CalendarioComponent {
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
+    //titleFormat: false,
     initialView: 'dayGridMonth',
     eventDisplay: 'block',
     weekends: false,
@@ -49,11 +49,9 @@ export class CalendarioComponent {
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    /* you can update a remote database when these fire:
-    eventAdd:
-    eventChange:
-    eventRemove:
-    */
+    slotDuration:'00:15:00',
+    slotMinTime:'07:00:00',
+    slotMaxTime:'18:00:00'
   };
   currentEvents = signal<EventApi[]>([]);
 
@@ -137,11 +135,13 @@ export class CalendarioComponent {
     const selectedDate = selectInfo.start;
     currentDate.setHours(0, 0, 0, 0);
     selectedDate.setHours(0, 0, 0, 0);
-
-    if (currentDate.getTime() <= selectedDate.getTime()) {
-      //console.log(currentDate.getTime(),selectedDate.getTime())
+    
+    if (currentDate.getTime() <= selectedDate.getTime()) { 
+      let fecha = new Date(selectInfo.start)
+      let hora = new Date(selectInfo.startStr)
       this.dialog.open(AgregarFechaComponent, {
-        width: '30%'
+        width: '30%',
+        data: [fecha,hora.toLocaleTimeString()]
       }).afterClosed().subscribe(val => {
         if (val == 'guardar') {
           this.obtenerConsultas();
@@ -163,7 +163,6 @@ export class CalendarioComponent {
       }
     });
   }
-
   handleEvents(events: EventApi[]) {
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError

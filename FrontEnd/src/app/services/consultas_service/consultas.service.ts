@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const URL = 'http://10.8.224.153:5000';
+const URL = 'http://localhost:5000';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +28,15 @@ export class ConsultasService {
     return this.http.post(URL + '/api/agregarconsulta', body,{'headers':headers});
   }
 
-  public actualizarConsulta(formvalue:any, data : number): Observable<any> {
+  public actualizarConsulta(formvalue:any, data : any): Observable<any> {
+    let aux:any
+    if(data instanceof Object)aux=data.idConsulta
+    else aux = data
+    
     const headers = { 'content-type': 'application/json'} 
     const body={
-      formvalue,
-      idConsulta: data
+      idConsulta: aux,
+      data: formvalue
     }
     return this.http.put(URL + '/api/actualizarconsulta', body,{'headers':headers});
   }
