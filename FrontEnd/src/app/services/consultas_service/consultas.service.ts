@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:5000';
+const URL = 'http://10.8.224.153:5000';
 
 @Injectable({
   providedIn: 'root'

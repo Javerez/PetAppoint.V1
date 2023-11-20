@@ -129,7 +129,7 @@ router.post("/agregarconsulta",verifyToken, jsonParser, (req, res) => {
         if (error)
             throw error;
         else { 
-            let sql2 = `insert into consulta values ('null','${fecha}','${nombreAnimal}','${nombreCliente}','${rutCliente}','${telefonoCliente}','${emailVet}','${tipoConsulta}','${descripcion}')`;
+            let sql2 = `insert into consulta values ('${null}','${fecha}','${nombreAnimal}','${nombreCliente}','${rutCliente}','${telefonoCliente}','${emailVet}','${tipoConsulta}','${descripcion}')`;
             connection.query(sql2, function (error, results, fields) {
                 if (error)
                     throw error;

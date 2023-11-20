@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 
-const URL = 'http://localhost:5000';
+const URL = 'http://10.8.224.153:5000';
 
 
 @Injectable({

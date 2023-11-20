@@ -14,11 +14,11 @@ const MYSQL_DB_PORT = '3306'
 async function ObtenerConsultasRut(rut) {
     const rutCliente = rut;
     const connection = BBDD.createConnection({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: '',
-        database: 'PetAppoint'
+        host: MYSQL_DB_HOST,
+        port: MYSQL_DB_PORT,
+        user: MYSQL_DB_USER,
+        password: MYSQL_DB_PASSWORD,
+        database: MYSQL_DB_NAME
     });
     await new Promise((resolve, reject) => {
         connection.connect(function(error) {
@@ -43,11 +43,11 @@ async function ObtenerConsultasRut(rut) {
 async function EliminarConsulta(rut) {
     const rutCliente = rut;
     const connection = BBDD.createConnection({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: '',
-        database: 'PetAppoint'
+        host: MYSQL_DB_HOST,
+        port: MYSQL_DB_PORT,
+        user: MYSQL_DB_USER,
+        password: MYSQL_DB_PASSWORD,
+        database: MYSQL_DB_NAME
     });
     await new Promise((resolve, reject) => {
         connection.connect(function(error) {
@@ -79,11 +79,11 @@ async function agregarConsulta(datos) {
     const tipoConsulta = 'Revisión';
     const descripcion = 'Se le hara un chequeo a la mascota'
     const connection = BBDD.createConnection({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: '',
-        database: 'PetAppoint'
+        host: MYSQL_DB_HOST,
+        port: MYSQL_DB_PORT,
+        user: MYSQL_DB_USER,
+        password: MYSQL_DB_PASSWORD,
+        database: MYSQL_DB_NAME
     });
     await new Promise((resolve, reject) => {
         connection.connect(function(error) {
@@ -93,7 +93,7 @@ async function agregarConsulta(datos) {
         });
     });
     const results = await new Promise((resolve, reject) => {
-        connection.query(`insert into consulta values ('null','${fecha}','${nombreAnimal}','${nombreCliente}','${rutCliente}','${telefonoCliente}','${emailVet}','${tipoConsulta}','${descripcion}')`
+        connection.query(`insert into consulta values ('${null}','${fecha}','${nombreAnimal}','${nombreCliente}','${rutCliente}','${telefonoCliente}','${emailVet}','${tipoConsulta}','${descripcion}')`
         , function (error, results) {
             if (error) {
             reject(error);
@@ -241,7 +241,7 @@ const flowAgendarConsulta = addKeyword(['asdasdasdasdasdasd'])
     .addAnswer(
         [   'Escriba su datos de la siguiente manera',
             'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566',
-            'Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866.2 945342322'
+            'Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322'
         ],
         {capture:true}, async(ctx, {flowDynamic, gotoFlow})=>{
             const body = ctx.body;
