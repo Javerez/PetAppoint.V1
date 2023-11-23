@@ -226,6 +226,10 @@ async function verificacionDatos(datos){
     return 7;
 }
 
+/*async function verificacionRut(rut){
+
+}*/
+
 const flowPrincipal = addKeyword(['hola', 'buenos dias', 'ola', 'oe'])
     .addAnswer(
         ['🙌 Bienvenido IvetMascotas',
