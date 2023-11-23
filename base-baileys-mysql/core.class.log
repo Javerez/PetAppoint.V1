@@ -1,32 +1,12 @@
 [handleMsg]:  {
   key: {
-    remoteJid: '56990233918@s.whatsapp.net',
+    remoteJid: '56982089840@s.whatsapp.net',
     fromMe: false,
-    id: 'BA173DF4FA6C2D3E4A675EB5AE342B73',
+    id: 'FA2645F4B8C796C23BD32AA249DD6737',
     participant: undefined
   },
-  messageTimestamp: 1700142630,
-  pushName: '~Vicho',
-  broadcast: false,
-  message: Message {
-    conversation: 'H',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'H',
-  from: '56990233918'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56990233918@s.whatsapp.net',
-    fromMe: false,
-    id: 'BB217C27F6E6FF9511431952B66CC471',
-    participant: undefined
-  },
-  messageTimestamp: 1700142640,
-  pushName: '~Vicho',
+  messageTimestamp: 1700743476,
+  pushName: '.',
   broadcast: false,
   message: Message {
     conversation: 'Hola',
@@ -36,11 +16,11 @@
     }
   },
   body: 'Hola',
-  from: '56990233918'
+  from: '56982089840'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_deb0e4b0-2338-480f-b9d2-bea4f97deeeb',
-  keyword: 'key_43da0a9c-585d-4daf-9503-64cc19d569ee',
+  ref: 'ans_dbbcc3e7-4e9d-43ab-8931-8cb547b943c2',
+  keyword: 'key_2a709df0-751a-4479-b6ac-b1dea8748991',
   answer: '🙌 Bienvenido IvetMascotas\n' +
     '¿En que le podemos ayudar?\n' +
     'Escriba el número de acuerdo a tu consulta\n' +
@@ -59,120 +39,17 @@
     keyword: {},
     callback: true
   },
-  refSerialize: '31e249fa76b3226aab6707e6901d991b'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56990233918@s.whatsapp.net',
-    fromMe: false,
-    id: '806F6D93BC4EB20B5D2119A34684917F',
-    participant: undefined
-  },
-  messageTimestamp: 1700142650,
-  pushName: '~Vicho',
-  broadcast: false,
-  message: Message {
-    conversation: '2',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2',
-  from: '56990233918'
+  refSerialize: '5790e831c920d762dd662ea4b5d0b855'
 }
 [handleMsg]:  {
   key: {
     remoteJid: '56982089840@s.whatsapp.net',
     fromMe: false,
-    id: '26E0EF3A7882266B34982E4016653EF4',
+    id: 'A717C4426B9E66CA9627E77E922627E6',
     participant: undefined
   },
-  messageTimestamp: 1700142668,
+  messageTimestamp: 1700743503,
   pushName: '.',
-  broadcast: false,
-  message: Message {
-    conversation: 'Hola',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Hola',
-  from: '56982089840'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_deb0e4b0-2338-480f-b9d2-bea4f97deeeb',
-  keyword: 'key_43da0a9c-585d-4daf-9503-64cc19d569ee',
-  answer: '🙌 Bienvenido IvetMascotas\n' +
-    '¿En que le podemos ayudar?\n' +
-    'Escriba el número de acuerdo a tu consulta\n' +
-    '1 Agendar consulta\n' +
-    '2 Consultar hora agendada\n' +
-    '3 Terminar',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '31e249fa76b3226aab6707e6901d991b'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56990233918@s.whatsapp.net',
-    fromMe: false,
-    id: 'D52A3B85AEFCF9EEABF1FECE91229C21',
-    participant: undefined
-  },
-  messageTimestamp: 1700142669,
-  pushName: '~Vicho',
-  broadcast: false,
-  message: Message {
-    conversation: '20.981.200-2',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '20.981.200-2',
-  from: '56990233918'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56982089840@s.whatsapp.net',
-    fromMe: false,
-    id: 'D5CDA44F1CEEE7F1CCB2AC9ABAF1E234',
-    participant: undefined
-  },
-  messageTimestamp: 1700142670,
-  pushName: '.',
-  broadcast: false,
-  message: Message {
-    conversation: 'Sexo',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Sexo',
-  from: '56982089840'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56990233918@s.whatsapp.net',
-    fromMe: false,
-    id: '8E5E9134525BCA4F00F76E59258FCFF1',
-    participant: undefined
-  },
-  messageTimestamp: 1700142685,
-  pushName: '~Vicho',
   broadcast: false,
   message: Message {
     conversation: '1',
@@ -182,105 +59,85 @@
     }
   },
   body: '1',
-  from: '56990233918'
+  from: '56982089840'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '56990233918@s.whatsapp.net',
+    remoteJid: '56982089840@s.whatsapp.net',
     fromMe: false,
-    id: 'CE329DA44D57C8376397336CB9C923AE',
+    id: '6E92B1CD0000FD59ED017FC3C4C18AEF',
     participant: undefined
   },
-  messageTimestamp: 1700142697,
-  pushName: '~Vicho',
+  messageTimestamp: 1700743510,
+  pushName: '.',
   broadcast: false,
   message: Message {
-    conversation: '20.981.200-2',
+    conversation: 'Oki',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2
     }
   },
-  body: '20.981.200-2',
-  from: '56990233918'
+  body: 'Oki',
+  from: '56982089840'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '56990233918@s.whatsapp.net',
+    remoteJid: '56982089840@s.whatsapp.net',
     fromMe: false,
-    id: '8B443FC8A48A99B54C586B944BD44102',
+    id: '8933B4CB0EE5F53309A34212F2BD80D4',
     participant: undefined
   },
-  messageTimestamp: 1700142794,
-  pushName: '~Vicho',
+  messageTimestamp: 1700743516,
+  pushName: '.',
   broadcast: false,
   message: Message {
-    conversation: '0',
+    conversation: 'Okey',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2
     }
   },
-  body: '0',
-  from: '56990233918'
+  body: 'Okey',
+  from: '56982089840'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_00cfaf46-4d70-4e35-bc1c-eca97d3aa689',
+  keyword: 'ans_c3c78e8e-980e-4c1b-8b3c-e330c6b2efde',
+  answer: 'Escriba su datos de la siguiente manera\n' +
+    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
+    '*Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322*',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '490b21068f708d39de9907ab36b4d72b'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '56990233918@s.whatsapp.net',
+    remoteJid: '56982089840@s.whatsapp.net',
     fromMe: false,
-    id: '91EE3ABE28A919B0002CCA273D012805',
+    id: 'DA79BBAF1CE959554A23179FDA65E7F4',
     participant: undefined
   },
-  messageTimestamp: 1700142798,
-  pushName: '~Vicho',
+  messageTimestamp: 1700743570,
+  pushName: '.',
   broadcast: false,
   message: Message {
-    conversation: '4',
+    conversation: 'Cancelar',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2
     }
   },
-  body: '4',
-  from: '56990233918'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56990233918@s.whatsapp.net',
-    fromMe: false,
-    id: 'DBB345455274F65CE8F233DDB5DCE504',
-    participant: undefined
-  },
-  messageTimestamp: 1700142801,
-  pushName: '~Vicho',
-  broadcast: false,
-  message: Message {
-    conversation: '3',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '3',
-  from: '56990233918'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56990233918@s.whatsapp.net',
-    fromMe: false,
-    id: '9DBC052367803001FB9FB9BCC0CC1684',
-    participant: undefined
-  },
-  messageTimestamp: 1700142806,
-  pushName: '~Vicho',
-  broadcast: false,
-  message: Message {
-    conversation: 'Hol',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Hol',
-  from: '56990233918'
+  body: 'Cancelar',
+  from: '56982089840'
 }
