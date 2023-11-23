@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AgregarFechaComponent } from '../agregar-fecha/agregar-fecha.component';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { UsuarioService } from 'src/app/services/usuario_service/usuario.service';
 
 
 @Component({
@@ -49,15 +50,16 @@ export class CalendarioComponent {
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    slotDuration:'00:15:00',
-    slotMinTime:'07:00:00',
-    slotMaxTime:'18:00:00'
+    slotDuration: '00:15:00',
+    slotMinTime: '07:00:00',
+    slotMaxTime: '18:00:00'
   };
   currentEvents = signal<EventApi[]>([]);
 
   constructor(
     private changeDetector: ChangeDetectorRef,
     private consultaService: ConsultasService,
+    private usuarioService: UsuarioService,
     private dialog: MatDialog) {
 
     const currentYear = new Date().getFullYear();
@@ -130,52 +132,55 @@ export class CalendarioComponent {
     this.obtenerConsultas()
   }
   handleDateSelect(selectInfo: DateSelectArg) {
+    if (this.usuarioService.HaveAccess()) {
+      const currentDate = new Date();
+      const selectedDate = selectInfo.start;
+      currentDate.setHours(0, 0, 0, 0);
+      selectedDate.setHours(0, 0, 0, 0);
 
-    const currentDate = new Date();
-    const selectedDate = selectInfo.start;
-    currentDate.setHours(0, 0, 0, 0);
-    selectedDate.setHours(0, 0, 0, 0);
-    
-    if (currentDate.getTime() <= selectedDate.getTime()) { 
-      let fecha = new Date(selectInfo.start)
-      let hora = new Date(selectInfo.startStr)
+      if (currentDate.getTime() <= selectedDate.getTime()) {
+        let fecha = new Date(selectInfo.start)
+        let hora = new Date(selectInfo.startStr)
+        this.dialog.open(AgregarFechaComponent, {
+          width: '30%',
+          data: [fecha, hora.toLocaleTimeString()]
+        }).afterClosed().subscribe(val => {
+          if (val == 'guardar') {
+            this.obtenerConsultas();
+          }
+        });
+      }
+    }
+    const calendarApi = selectInfo.view.calendar;
+    calendarApi.unselect(); // clear date selection
+
+  }
+
+  handleEventClick(clickInfo: EventClickArg) {
+    if(this.usuarioService.HaveAccess()){
       this.dialog.open(AgregarFechaComponent, {
         width: '30%',
-        data: [fecha,hora.toLocaleTimeString()]
+        data: clickInfo.event['id']
       }).afterClosed().subscribe(val => {
-        if (val == 'guardar') {
+        if (val == 'actualizar' || val == 'eliminar') {
           this.obtenerConsultas();
         }
       });
     }
-
-    const calendarApi = selectInfo.view.calendar;
-    calendarApi.unselect(); // clear date selection
-  }
-
-  handleEventClick(clickInfo: EventClickArg) {
-    this.dialog.open(AgregarFechaComponent, {
-      width: '30%',
-      data: clickInfo.event['id']
-    }).afterClosed().subscribe(val => {
-      if (val == 'actualizar' || val == 'eliminar') {
-        this.obtenerConsultas();
-      }
-    });
   }
   handleEvents(events: EventApi[]) {
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
   buscarFecha(event: MatDatepickerInputEvent<Date>) {
-    const date =event.value
+    const date = event.value
     let calendarApi = this.calendarComponent.getApi();
     const year = date?.getFullYear();
     let month = date?.getMonth();
-    month!+=1
+    month! += 1
     const day = date?.getDate();
 
-    const date2 =`${year}-${month}-${day}`;
+    const date2 = `${year}-${month}-${day}`;
 
     if (date != null) {
       //console.log(date2);
@@ -186,5 +191,5 @@ export class CalendarioComponent {
     const day = (d || new Date()).getDay();
     return day !== 0 && day !== 6;
   };
-  
+
 }
