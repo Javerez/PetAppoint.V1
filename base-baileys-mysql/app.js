@@ -226,9 +226,27 @@ async function verificacionDatos(datos){
     return 7;
 }
 
-/*async function verificacionRut(rut){
-
-}*/
+async function verificacionRut(rut){
+    const letras="abcdefghyjklmnñopqrstuvwxyz";
+    for(i=0; i<rut.length; i++){
+        if(rut.length >12 || rut.length <11)
+        if(rut.charAt(i)!=='-'){
+            if(rut.charAt(i)!=='.'){
+                if(rut.charAt(i)==='k' && i===(rut.length-1)){
+                    return 2;
+                }
+                if (letras.indexOf(rut.charAt(i),0)!=-1){
+                    return 1;
+                }
+            }else if(rut.charAt(i) === '.' && (i!==1 || i!==2)){
+                return 1;
+            }
+        }else if(rut.charAt(i) === '-' && (i!==10 || i!==9)){
+            return 1;
+        }
+    }
+    return 2;
+}
 
 const flowPrincipal = addKeyword(['hola', 'buenos dias', 'ola', 'oe'])
     .addAnswer(
@@ -265,7 +283,7 @@ const flowConsultasAgendadas = addKeyword(['aaaaaaaaaaaaaaaaaaaaaaaaaaaaa'])
         ])
     .addAnswer('(Ej: 11.111.111-1)', {capture:true}, async (ctx,{gotoFlow, fallBack, flowDynamic, endFlow})=>{
                 const body = ctx.body;
-                if(body.length>12 || body.length<11){
+                if(verificacionRut(body) === 1){
                     return fallBack('Ingrese un rut valido'), gotoFlow(flowConsultasAgendadas);
                 }else{
                     const results = await ObtenerConsultasRut(body);
@@ -323,7 +341,7 @@ const flowEliminarConsulta = addKeyword(["youaremyespecialtuturururuasdas"])
       {
         gotoFlow(flowPrincipal);
       }
-      if (body.length>12 || body.length<11) {
+      if (verificacionRut(body) === 1) {
         return (
           fallBack("Ingrese un rut valido"), gotoFlow(flowEliminarConsulta)
         );
