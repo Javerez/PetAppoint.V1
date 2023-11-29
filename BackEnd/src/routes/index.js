@@ -26,10 +26,6 @@ connection.connect(function (err) {
     console.log('Conexión establecida ' + connection.threadId);
 });
 
-
-
-
-
 //Registra 
 router.post("/registro",verifyToken, jsonParser, async (req, res) => {
     let nombre = req.body.nombre;

@@ -47,18 +47,14 @@ export class InicioSesionComponent {
   
   iniciarSesion() {
     if (this.formInicioSesion.status === 'VALID') {
-      
       this.usuarioService.inicioSesionUsuario(this.formInicioSesion.value).subscribe(
         data => {
-
           this.error_id=data.id
           if (this.error_id==1){
-            console.log(data.token)
-
+            localStorage.setItem('email',this.formInicioSesion.value['email']);
             localStorage.setItem('token',data.token);
             this.router.navigate(['home']);
           }
-          
         },error=>{
           console.log(error)
         }

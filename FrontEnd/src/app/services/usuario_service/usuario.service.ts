@@ -32,6 +32,7 @@ export class UsuarioService {
   }
   
   cerrarSesion(){
+    localStorage.removeItem('email');
     localStorage.removeItem('token');
     this.router.navigate(['inicio-sesion']);
   }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsultasService } from 'src/app/services/consultas_service/consultas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RutService } from 'rut-chileno'
+import { DialogConfirmacionService } from 'src/app/services/dialog-confirmacion/dialog-confirmacion.service';
 
 @Component({
   selector: 'app-agregar-fecha',
@@ -24,13 +25,13 @@ export class AgregarFechaComponent {
   formCita !: FormGroup;
   error_id: any;
 
-
   constructor(
     private formBuilder: FormBuilder,
     private consultaService: ConsultasService,
     @Inject(MAT_DIALOG_DATA) public editarConsulta: any,
     private dialogRef: MatDialogRef<AgregarFechaComponent>,
     private rutService: RutService,
+    private confirmacionService: DialogConfirmacionService
   ) {
     dialogRef.disableClose = true;
     const currentYear = new Date().getFullYear();
@@ -90,29 +91,35 @@ export class AgregarFechaComponent {
       this.btnaccion = "Guardar"
       this.formCita.controls['fecha'].setValue(this.editarConsulta[0])
       //Si se saca esta posicion, la hora por defecto son las 21:00 hrs que no se muestran en el calendario
-      if (this.editarConsulta[1]=='21:00:00')this.editarConsulta[1]="12:00:00"
+      if (this.editarConsulta[1] == '21:00:00') this.editarConsulta[1] = "12:00:00"
       const hora = this.editarConsulta[1].replace(':00', '')
       this.formCita.controls['hora'].setValue(hora)
       this.formCita.controls['tipoConsulta'].setValue('Consulta veterinaria')
 
     }
   }
+
   inputEvent(event: Event) {
     let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
     if (rut)
       this.formCita.controls['rutCliente'].patchValue(rut, { emitEvent: false });
   }
+
   eliminarConsulta() {
     let idConsulta = this.editarConsulta
-    this.consultaService.eliminarConsulta(idConsulta).subscribe({
-      next: (res) => {
-        this.dialogRef.close('eliminar');
-      },
-      error: () => {
-        alert("Hubo un error eliminando")
-      }
-    });
+    this.confirmacionService.abrirConfirmar('¿Esta seguro de que quiere eliminar la consulta?')
+      .afterClosed().subscribe(res => {
+        if (res == true) {
+          this.consultaService.eliminarConsulta(idConsulta)
+            .subscribe(data => {
+              this.formCita.reset();
+              this.dialogRef.close('eliminar');
+            });
+
+        }
+      });
   }
+
   actualizarConsulta() {
     this.consultaService.actualizarConsulta(this.formCita.value, this.editarConsulta)
       .subscribe(data => {
@@ -120,9 +127,10 @@ export class AgregarFechaComponent {
         this.dialogRef.close('actualizar');
       });
   }
-  agregar() {
+
+  agregarConsulta() {
     if (!this.editarConsulta || this.editarConsulta instanceof Array) {
-      this.formCita.controls['emailVet'].setValue("jose@example");
+      this.formCita.controls['emailVet'].setValue(localStorage.getItem('email'));
       if (this.formCita.valid) {
         this.consultaService.agregarConsulta(this.formCita.value)
           .subscribe(data => {
@@ -131,10 +139,17 @@ export class AgregarFechaComponent {
             this.dialogRef.close('guardar');
           });
       }
-    }else {
-      this.actualizarConsulta();
+    } else {
+      this.confirmacionService.abrirConfirmar('¿Esta seguro de que quiere actualizar?')
+        .afterClosed().subscribe(res => {
+          if (res == true) {
+            this.actualizarConsulta();
+
+          }
+        });
     }
   }
+
   noWeekends = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     return day !== 0 && day !== 6;

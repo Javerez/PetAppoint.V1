@@ -38,7 +38,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgregarFechaComponent } from './componentes/agregar-fecha/agregar-fecha.component';
 //Fecha y hora
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
-import { TokenInterceptorService } from './services/token-interceptor.service';
+import { TokenInterceptorService } from './services/token_interceptor/token-interceptor.service';
+import { ConfirmacionComponent } from './componentes/confirmacion/confirmacion.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     ConsultasComponent,
     RegistroUsuarioComponent,
     HomeComponent,
-    AgregarFechaComponent
+    AgregarFechaComponent,
+    ConfirmacionComponent
 
   ],
   imports: [

@@ -5,10 +5,11 @@ import { UsuarioService } from 'src/app/services/usuario_service/usuario.service
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarFechaComponent } from '../agregar-fecha/agregar-fecha.component';
 
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { DialogConfirmacionService } from 'src/app/services/dialog-confirmacion/dialog-confirmacion.service';
 
 
 
@@ -31,7 +32,8 @@ export class ConsultasComponent implements OnInit {
   constructor(
     private consultaService: ConsultasService,
     private usuarioService: UsuarioService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private confirmacionService:DialogConfirmacionService,
   ) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
@@ -93,14 +95,20 @@ export class ConsultasComponent implements OnInit {
   }
 
   eliminarConsulta(idConsulta: any) {
-    this.consultaService.eliminarConsulta(idConsulta).subscribe({
-      next: (res) => {
-        this.obtenerConsultas();
-      },
-      error: () => {
-        alert("Hubo un error eliminando")
+    this.confirmacionService.abrirConfirmar('¿Esta seguro de que quiere eliminar la consulta?')
+    .afterClosed().subscribe(res =>{
+      if(res==true){
+        this.consultaService.eliminarConsulta(idConsulta).subscribe({
+          next: (res) => {
+            this.obtenerConsultas();
+          },
+          error: () => {
+            alert("Hubo un error eliminando")
+          }
+        });
       }
     });
+    
   }
   buscarFecha(event: MatDatepickerInputEvent<Date>) {
     const date =event.value

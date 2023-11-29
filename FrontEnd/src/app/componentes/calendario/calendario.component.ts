@@ -132,32 +132,32 @@ export class CalendarioComponent {
     this.obtenerConsultas()
   }
   handleDateSelect(selectInfo: DateSelectArg) {
-    if (this.usuarioService.HaveAccess()) {
-      const currentDate = new Date();
-      const selectedDate = selectInfo.start;
-      currentDate.setHours(0, 0, 0, 0);
-      selectedDate.setHours(0, 0, 0, 0);
 
-      if (currentDate.getTime() <= selectedDate.getTime()) {
-        let fecha = new Date(selectInfo.start)
-        let hora = new Date(selectInfo.startStr)
-        this.dialog.open(AgregarFechaComponent, {
-          width: '30%',
-          data: [fecha, hora.toLocaleTimeString()]
-        }).afterClosed().subscribe(val => {
-          if (val == 'guardar') {
-            this.obtenerConsultas();
-          }
-        });
-      }
+    const currentDate = new Date();
+    const selectedDate = selectInfo.start;
+    currentDate.setHours(0, 0, 0, 0);
+    selectedDate.setHours(0, 0, 0, 0);
+
+    if (currentDate.getTime() <= selectedDate.getTime()) {
+      let fecha = new Date(selectInfo.start)
+      let hora = new Date(selectInfo.startStr)
+      this.dialog.open(AgregarFechaComponent, {
+        width: '30%',
+        data: [fecha, hora.toLocaleTimeString()]
+      }).afterClosed().subscribe(val => {
+        if (val == 'guardar') {
+          this.obtenerConsultas();
+        }
+      });
     }
+
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
 
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if(this.usuarioService.HaveAccess()){
+    if (this.usuarioService.HaveAccess()) {
       this.dialog.open(AgregarFechaComponent, {
         width: '30%',
         data: clickInfo.event['id']
