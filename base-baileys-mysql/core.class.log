@@ -1,12 +1,12 @@
 [handleMsg]:  {
   key: {
-    remoteJid: '56972883192@s.whatsapp.net',
+    remoteJid: '56942796002@s.whatsapp.net',
     fromMe: false,
-    id: 'B17360BF11B58F0733935C52898CAA85',
+    id: '230D6F723AC89B4AD6DEE7711DE9DC04',
     participant: undefined
   },
-  messageTimestamp: 1700747513,
-  pushName: 'Josepm',
+  messageTimestamp: 1701403017,
+  pushName: 'María José🙂🌹💕🐱',
   broadcast: false,
   message: Message {
     conversation: 'Hola',
@@ -16,11 +16,11 @@
     }
   },
   body: 'Hola',
-  from: '56972883192'
+  from: '56942796002'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_e700360d-9d65-45dc-b8f6-4ac676296c9e',
-  keyword: 'key_b26020f7-fa6a-498c-863c-790b04eb45a7',
+  ref: 'ans_72df53a3-4900-45fc-861d-2eb9de854ea9',
+  keyword: 'key_d6c34cd3-ed5f-49db-bd9b-060fac696d29',
   answer: '🙌 Bienvenido IvetMascotas\n' +
     '¿En que le podemos ayudar?\n' +
     'Escriba el número de acuerdo a tu consulta\n' +
@@ -39,497 +39,17 @@
     keyword: {},
     callback: true
   },
-  refSerialize: 'b3583c78d09ffb82b9fecade2297086a'
+  refSerialize: 'b9c4ec4829fef026590dc6f9d1181bba'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '56972883192@s.whatsapp.net',
+    remoteJid: '56942796002@s.whatsapp.net',
     fromMe: false,
-    id: '555CC3BFD534DE966A6A47BCD2A2F091',
+    id: 'D0B12C05AB375B26E9CE8A05BD5AB667',
     participant: undefined
   },
-  messageTimestamp: 1700747515,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '1',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '1',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'EC110BA94CD487CA3590427F42352DF0',
-    participant: undefined
-  },
-  messageTimestamp: 1700747520,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: 'Okey',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Okey',
-  from: '56972883192'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_955eb8f0-44c4-424e-a150-91627471f2ed',
-  keyword: 'ans_9a5990b2-c938-4e7c-b48e-ebc1550ebdfb',
-  answer: 'Escriba su datos de la siguiente manera\n' +
-    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
-    '*Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322*',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '033806ff645f645c8d898b0d63f43036'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '49FEBB0AEFC3B1EC68A4E64C62A1CDA2',
-    participant: undefined
-  },
-  messageTimestamp: 1700747560,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2023-11-29:10:30 prueba 11.111.111-1 9988775677',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2023-11-29:10:30 prueba 11.111.111-1 9988775677',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'FA3895E23681DAC1B93537E11E475FD9',
-    participant: undefined
-  },
-  messageTimestamp: 1700747590,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024-29-11:10:30 prueba 11.111.111-1 9988775677',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024-29-11:10:30 prueba 11.111.111-1 9988775677',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'C8250DA8E1E04EC70117801A29538CBC',
-    participant: undefined
-  },
-  messageTimestamp: 1700747597,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: 'Okey',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Okey',
-  from: '56972883192'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_955eb8f0-44c4-424e-a150-91627471f2ed',
-  keyword: 'ans_9a5990b2-c938-4e7c-b48e-ebc1550ebdfb',
-  answer: 'Escriba su datos de la siguiente manera\n' +
-    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
-    '*Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322*',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '033806ff645f645c8d898b0d63f43036'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'AABB9AF12C179C806B145794E3D24F6A',
-    participant: undefined
-  },
-  messageTimestamp: 1700747607,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024-29-11:10:30 prueba 11.111.111-1 9988775677',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024-29-11:10:30 prueba 11.111.111-1 9988775677',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'D72CD9284869AB22C9B4C37B5E572D1F',
-    participant: undefined
-  },
-  messageTimestamp: 1700747641,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024-11-29:10:30 prueba 11.111.111-1 9988775677',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024-11-29:10:30 prueba 11.111.111-1 9988775677',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '8409277CF31ADA5F4601858C381FBCDA',
-    participant: undefined
-  },
-  messageTimestamp: 1700747647,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: 'Okey',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Okey',
-  from: '56972883192'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_955eb8f0-44c4-424e-a150-91627471f2ed',
-  keyword: 'ans_9a5990b2-c938-4e7c-b48e-ebc1550ebdfb',
-  answer: 'Escriba su datos de la siguiente manera\n' +
-    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
-    '*Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322*',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '033806ff645f645c8d898b0d63f43036'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '122ED4A441AF490A2F93170E5AC03C17',
-    participant: undefined
-  },
-  messageTimestamp: 1700747659,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024-11-29:10:30 prueba 11.111.111-1 9988775677',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024-11-29:10:30 prueba 11.111.111-1 9988775677',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'A98F857BB59D246BE1DB422F960DE6F4',
-    participant: undefined
-  },
-  messageTimestamp: 1700747699,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024-11-29 18:10:30 prueba lucas 11.111.111-1 998877567',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024-11-29 18:10:30 prueba lucas 11.111.111-1 998877567',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '0DA2C085E376FF735970680DAEA2E12C',
-    participant: undefined
-  },
-  messageTimestamp: 1700747735,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: 'Okey',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Okey',
-  from: '56972883192'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_955eb8f0-44c4-424e-a150-91627471f2ed',
-  keyword: 'ans_9a5990b2-c938-4e7c-b48e-ebc1550ebdfb',
-  answer: 'Escriba su datos de la siguiente manera\n' +
-    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
-    '*Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322*',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '033806ff645f645c8d898b0d63f43036'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '0AEF98521FF96F13845AD4094D736372',
-    participant: undefined
-  },
-  messageTimestamp: 1700747739,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024-11-29 18:10:30 prueba lucas 11.111.111-1 998877567',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024-11-29 18:10:30 prueba lucas 11.111.111-1 998877567',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '9F8A2699D3CBC8914ED5CF839678278D',
-    participant: undefined
-  },
-  messageTimestamp: 1700747760,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024.11.29 18:10:30 prueba lucas 11.111.111-1 998877567',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024.11.29 18:10:30 prueba lucas 11.111.111-1 998877567',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '2ABA83FE70ECFC4DE8F5CD227CE1F884',
-    participant: undefined
-  },
-  messageTimestamp: 1700747765,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: 'Okey',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Okey',
-  from: '56972883192'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_955eb8f0-44c4-424e-a150-91627471f2ed',
-  keyword: 'ans_9a5990b2-c938-4e7c-b48e-ebc1550ebdfb',
-  answer: 'Escriba su datos de la siguiente manera\n' +
-    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
-    '*Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322*',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '033806ff645f645c8d898b0d63f43036'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'F2773943D71028DE3105159AE6D570BC',
-    participant: undefined
-  },
-  messageTimestamp: 1700747779,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024.11.29 18:10:30 prueba lucas 11.111.111-1 998877567',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024.11.29 18:10:30 prueba lucas 11.111.111-1 998877567',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '80C9A31AE5C659F1CAEF03CE22ABF592',
-    participant: undefined
-  },
-  messageTimestamp: 1700747790,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: 'Okey',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Okey',
-  from: '56972883192'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_955eb8f0-44c4-424e-a150-91627471f2ed',
-  keyword: 'ans_9a5990b2-c938-4e7c-b48e-ebc1550ebdfb',
-  answer: 'Escriba su datos de la siguiente manera\n' +
-    'yyyy-mm-dd hh:mm:ss nombreMascota nombreCliente 11.111.111-1 912334566\n' +
-    '*Ejemplo: 2000-9-11 10:30:00 michi nicolas 20.326.866-2 945342322*',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '033806ff645f645c8d898b0d63f43036'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: 'AD2EFB2E3352ADA37FC0F7C69320D321',
-    participant: undefined
-  },
-  messageTimestamp: 1700747806,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: '2024.11.29 15:20:00 prueba lucas 11.111.111-1 998877567',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: '2024.11.29 15:20:00 prueba lucas 11.111.111-1 998877567',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '71508098075FFD2E82320056A8E13D47',
-    participant: undefined
-  },
-  messageTimestamp: 1700747894,
-  pushName: 'Josepm',
-  broadcast: false,
-  message: Message {
-    conversation: 'Cancelar',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
-    }
-  },
-  body: 'Cancelar',
-  from: '56972883192'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56972883192@s.whatsapp.net',
-    fromMe: false,
-    id: '9826B11FBD75E31AFD06984DA39F6146',
-    participant: undefined
-  },
-  messageTimestamp: 1700747899,
-  pushName: 'Josepm',
+  messageTimestamp: 1701403019,
+  pushName: 'María José🙂🌹💕🐱',
   broadcast: false,
   message: Message {
     conversation: '2',
@@ -539,5 +59,65 @@
     }
   },
   body: '2',
-  from: '56972883192'
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: 'E544EC307532E642FE23BEFB5E2BE1E4',
+    participant: undefined
+  },
+  messageTimestamp: 1701403029,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '20.326.857-4',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '20.326.857-4',
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: 'EA1247CBC43606660E279C8A0281D36F',
+    participant: undefined
+  },
+  messageTimestamp: 1701403034,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '1',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '1',
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: 'C04989CA2638A7ED6B519612252D249E',
+    participant: undefined
+  },
+  messageTimestamp: 1701403044,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '20.326.857-4',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '20.326.857-4',
+  from: '56942796002'
 }
