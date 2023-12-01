@@ -150,7 +150,7 @@ function getFullDate(date){
     return day < 10 ? '0'+day : day
 }
 
-async function validarFormatoFecha(fecha) {
+function validarFormatoFecha(fecha) {
     var RegExPattern = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
     if ((fecha.match(RegExPattern)) && (fecha!='')) {
           return true;
@@ -159,40 +159,57 @@ async function validarFormatoFecha(fecha) {
     }
 }
 
-async function validarFormatoHora(hora) {
-    var RegExPattern = /^(d{1,2}):(d{2})(:(d{2}))?(s?())?$/;
-    if ((hora.match(RegExPattern)) && (hora!='')) {
-          return true;
+function validarFormatoHora(hora) {
+    var RegExPattern = /^(\d{1,2}):(\d{2})(:(\d{2}))?(\s?[AM|PM]*)?$/;
+    var match = hora.match(RegExPattern);
+    if (match !== null) {
+        // Se encontró una coincidencia, podrías devolver la hora formateada, por ejemplo.
+        return true;
     } else {
-          return false;
+        // No se encontró una coincidencia, podrías devolver un mensaje de error.
+        return false;
     }
 }
 
-async function verificacionRut(rut){
-    var rutEntero;
-    var DV; 
-    for(i=0; i<rut.length; i++){
-        if(rut.charAt(i)!=='-' || rut.charAt(i)!== '.'){
-            if(i == rut.length - 1){
-                DV = rut.charAt(i);
-                DV = DV.toLowerCase();
-            }else{
-                rutEntero = rutEntero + rut.charAt(i);
+
+function verificacionRut(rut) {
+    var rutEntero = '';
+    var DV;
+    const letras="abcdefghijklmnñopqrstuvwxyz";
+    const regex = /^(?:\d{1,2}\.\d{3}\.\d{3}-[\dkDK])$/;
+    if (!rut.match(regex)) {
+        return false; // El RUT no tiene el formato correcto
+    }
+    for (var i = 0; i < rut.length; i++) {
+        if (rut.charAt(i) !== '-' && rut.charAt(i) !== '.') {
+            if (i === rut.length - 1) {
+                if (rut.charAt(i).toUpperCase() === 'K') {
+                    DV = rut.charAt(i).toLowerCase();
+                } else {
+                    DV = rut.charAt(i);
+                }
+            } else {
+                if (letras.indexOf(rut.charAt(i),0)!=-1){
+                    return false;
+                }else{
+                    rutEntero += rut.charAt(i);
+                }
             }
         }
     }
-    if(rutEntero.length<7 || rutEntero.length>8)
-    {
+    
+    if (rutEntero.length < 7 || rutEntero.length > 8) {
         return false;
-    }else{
-        if(DV !== 'k' || parseInt(DV)<0 || parseInt(DV)>9){
+    } else {
+        if (DV !== 'k' && (isNaN(parseInt(DV)) || parseInt(DV) < 0 || parseInt(DV) > 9)) {
             return false;
         }
     }
     return true;
 }
 
-async function validarFormatoMascota(mascota) {
+
+function validarFormatoMascota(mascota) {
     const numeros ="0123456789";
     const nombreM = mascota.toLowerCase();
     for(i=0; i<nombreM.length; i++){
@@ -203,7 +220,7 @@ async function validarFormatoMascota(mascota) {
     return true;
 }
 
-async function validarFormatoCliente(cliente) {
+function validarFormatoCliente(cliente) {
     const numeros ="0123456789";
     const dueno = cliente.toLowerCase();
     for(i=0; i<dueno.length; i++){
@@ -214,51 +231,62 @@ async function validarFormatoCliente(cliente) {
     return true;
 }
 
-async function validarFormatoTelefono(telefonoCliente) {
-    const letras="abcdefghyjklmnñopqrstuvwxyz";
-    for(i=0; i<telefonoCliente.length; i++){
-        if(telefonoCliente.length !== 9){
-            return false;
-        }
-        if (letras.indexOf(telefonoCliente.charAt(i),0)!=-1){
+function validarFormatoTelefono(telefonoCliente) {
+    const letras = "abcdefghijklmnñopqrstuvwxyz";
+
+    if (telefonoCliente.length !== 9) {
+        return false;
+    }
+
+    for (var i = 0; i < telefonoCliente.length; i++) {
+        if (letras.indexOf(telefonoCliente.charAt(i)) !== -1) {
             return false;
         }
     }
+
     return true;
 }
 
-async function existeHora(hora){
+
+function existeHora(hora){
     var horaH = hora.split(":");
     var hora = horaH[0];
     var minuto = horaH[1];
     var segundo = horaH[2];
-    if(parseInt(hora)<0 && parseInt(hora) > 23 ){
+    if(parseInt(hora)<0 || parseInt(hora) > 23 ){
         return false;
     }
-    if(parseInt(minuto)<0 && parseInt(minuto) > 59 ){
+    if(parseInt(minuto)<0 || parseInt(minuto) > 59 ){
         return false;
     }
-    if(parseInt(segundo)<0 && parseInt(segundo) >59 ){
+    if(parseInt(segundo)<0 || parseInt(segundo) >59 ){
         return false;
     }
     return true;
 }
 
-async function existeFecha(fecha){
+function existeFecha(fecha){
     var fechaf = fecha.split("-");
-    var day = fechaf[0];
-    var month = fechaf[1];
-    var year = fechaf[2];
-    var date = new Date(year,month,'0');
-    if((day-0)>(date.getDate()-0)){
+    var dia = parseInt(fechaf[2]);
+    var mes = parseInt(fechaf[1]);
+    var ano = fechaf[0];
+    if(mes<1 || mes > 12 ){
+        return false;
+    }
+    if(dia>31 && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12)){
+        return false;
+    }else if(dia>30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11)){
+        return false;
+    }else if(dia>28 && mes == 2){
         return false;
     }
     return true;
 }
 
-async function validarFechaMenorActual(date){
+function validarFechaMenorActual(date){
+    var x = new Date();
     var fecha = date.split("-");
-    var x=new Date(fecha[2],fecha[1]-1,fecha[0]);
+    x.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
     var today = new Date();
     if (x < today)
       return false;
@@ -294,46 +322,49 @@ const flowPrincipal = addKeyword(['hola', 'buenos dias', 'ola', 'oe'])
             }
         })
 
-const flowConsultasAgendadas = addKeyword(['aaaaaaaaaaaaaaaaaaaaaaaaaaaaa'])
-    .addAnswer(
-        [
-            'Ingrese su rut para confirmar su agenda',
-            'Ej: *11.111.111-1*'
-        ])
-    .addAnswer('|Para regresar escriba *1*|', {capture:true}, async (ctx,{gotoFlow, fallBack, flowDynamic, endFlow})=>{
-                const body = ctx.body;
-                if(body === "1"){
-                    return gotoFlow(flowPrincipal);
-                }else if(verificacionRut(body)){
-                    const results = await ObtenerConsultasRut(body);
-                    if (results[0].rutCliente === "") {
-                        return fallBack('No existe una hora con el rut ingresado'), gotoFlow(flowConsultasAgendadas);
-                    }else{
-                        const mes = getFullMonth(results[0].fecha);
-                        const dia = getFullDate(results[0].fecha);
-                        const mensaje =
-                        "Fecha: " +
-                        results[0].fecha.getFullYear() +
-                        "-" +
-                        mes +
-                        "-" +
-                        dia +
-                        " " +
-                        results[0].fecha.getHours() +
-                        ":" +
-                        results[0].fecha.getMinutes() +
-                        "\nNombre mascota: " +
-                        results[0].nombreAnimal +
-                        "\nTipo de consulta: " +
-                        results[0].tipoConsulta;
-                        await flowDynamic(mensaje);
-                        gotoFlow(flowConsulta);
-                    }
-                }else{
-                    fallBack("Ingrese un rut valido segun el formato");
-                    gotoFlow(flowConsultasAgendadas);
-                }
-    })
+const flowConsultasAgendadas = addKeyword([
+  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+]).addAnswer(
+  [
+    "Ingrese su rut para confirmar su agenda",
+    "Ej: *11.111.111-1*",
+    "|Para regresar escriba *1*|",
+  ],
+  { capture: true },
+  async (ctx, { gotoFlow, fallBack, flowDynamic, endFlow }) => {
+    const body = ctx.body;
+    if (body === "1") {
+      return gotoFlow(flowPrincipal);
+    } else if (verificacionRut(body)) {
+      const results = await ObtenerConsultasRut(body);
+      if (results[0] === undefined) {
+        fallBack("No existe una hora con el rut ingresado");
+      } else {
+        const mes = getFullMonth(results[0].fecha);
+        const dia = getFullDate(results[0].fecha);
+        const mensaje =
+          "Fecha: " +
+          results[0].fecha.getFullYear() +
+          "-" +
+          mes +
+          "-" +
+          dia +
+          " " +
+          results[0].fecha.getHours() +
+          ":" +
+          results[0].fecha.getMinutes() +
+          "\nNombre mascota: " +
+          results[0].nombreAnimal +
+          "\nTipo de consulta: " +
+          results[0].tipoConsulta;
+        await flowDynamic(mensaje);
+        gotoFlow(flowConsulta);
+      }
+    } else {
+      fallBack("Ingrese un rut valido segun el formato");
+    }
+  }
+);
 
 const flowConsulta = addKeyword(['asdasdasdasdasdasdasdasdasd'])
     .addAnswer(
@@ -360,12 +391,9 @@ const flowConsulta = addKeyword(['asdasdasdasdasdasdasdasdasd'])
         })
 
 const flowEliminarConsulta = addKeyword(["youaremyespecialtuturururuasdas"])
-  .addAnswer([
-    "Ingrese su rut para eliminar su consulta",
+  .addAnswer(["Ingrese su rut para eliminar su consulta",
     'Ej: *11.111.111-1*',
-  ])
-  .addAnswer(
-    "|Para regresar escriba 1|",
+    "|Para regresar escriba 1|"],
     { capture: true },
     async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
       const body = ctx.body;
@@ -374,13 +402,12 @@ const flowEliminarConsulta = addKeyword(["youaremyespecialtuturururuasdas"])
         gotoFlow(flowConsulta);
       }
       if (!verificacionRut(body)) {
-        fallBack("Ingrese un rut valido"), gotoFlow(flowEliminarConsulta);
+        fallBack("Ingrese un rut valido");
       } else {
         const results = await EliminarConsulta(body);
         if (results !== 1) {
           return (
-            fallBack("Rut no valido"),
-            gotoFlow(flowEliminarConsulta)
+            fallBack("Rut no valido")
           );
         } else {
           const mensaje = 'Se a eliminado su consulta con exito';
@@ -417,7 +444,7 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
         "Ejemplo: 2024-02-03"
     ],
     { capture: true},
-    async (ctx, {flowDynamic, gotoFlow, fallBack}) => {
+    async (ctx, {gotoFlow, fallBack}) => {
         const body = ctx.body;
         if (body === "2") {
           return gotoFlow(flowPrincipal);
@@ -427,15 +454,12 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
                     formulario[0] = body;
                 }else{
                     fallBack("La fecha introducida no es valida");
-                    await gotoFlow(flowAgendarConsulta);
                 }
-            } else {
+            }else {
                 fallBack("La fecha introducida no existe");
-                await gotoFlow(flowAgendarConsulta);
             }
         }else{
             fallBack("Ingrese una fecha valida segun el formato");
-            await gotoFlow(flowAgendarConsulta);
         }
 
     }
@@ -446,7 +470,7 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
         "Ejemplo: 16:30"
     ],
     { capture:true},
-    async(ctx, {flowDynamic, gotoFlow, fallBack}) =>{
+    async(ctx, {gotoFlow, fallBack}) =>{
         const body2 = ctx.body;
         if (body2 === "2") {
           return gotoFlow(flowPrincipal);
@@ -456,12 +480,10 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
             if (existeHora(body)) {
                 formulario[1] = body;
             } else {
-                fallBack("La fecha introducida no existe");
-                await gotoFlow(flowAgendarConsulta);
+                fallBack("La hora introducida no existe");
             }
         }else{
-            fallBack("Ingrese una fecha valida segun el formato");
-            await gotoFlow(flowAgendarConsulta);
+            fallBack("Ingrese una hora valida segun el formato");
         }
     }
   )
@@ -471,7 +493,7 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
         "Ejemplo: Firulais"
     ],
     { capture:true},
-    async(ctx, {flowDynamic, gotoFlow, fallBack}) =>{
+    async(ctx, {gotoFlow, fallBack}) =>{
         const body = ctx.body;
         if (body === "2") {
           return gotoFlow(flowPrincipal);
@@ -479,7 +501,6 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
             formulario[2] = body;
         }else{
             fallBack("Ingrese un nombre valido segun el formato");
-            await gotoFlow(flowAgendarConsulta);
         }
     }
   )
@@ -489,7 +510,7 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
         "Ejemplo: José Arellano"
     ],
     { capture:true},
-    async(ctx, {flowDynamic, gotoFlow, fallBack}) =>{
+    async(ctx, {gotoFlow, fallBack}) =>{
         const body = ctx.body;
         if (body === "2") {
           return gotoFlow(flowPrincipal);
@@ -497,7 +518,6 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
             formulario[3] = body;
         }else{
             fallBack("Ingrese un nombre valido segun el formato");
-            await gotoFlow(flowAgendarConsulta);
         }
     }
   )
@@ -507,7 +527,7 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
         "Ejemplo: 12.345.678-9"
     ],
     { capture:true},
-    async(ctx, {flowDynamic, gotoFlow, fallBack}) =>{
+    async(ctx, {gotoFlow, fallBack}) =>{
         const body = ctx.body;
         if (body === "2") {
           return gotoFlow(flowPrincipal);
@@ -515,7 +535,6 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
             formulario[4] = body;
         }else{
             fallBack("Ingrese un rut valido segun el formato");
-            await gotoFlow(flowAgendarConsulta);
         }
     }
   )
@@ -529,13 +548,10 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
         const body = ctx.body;
         if (body === "2") {
           return gotoFlow(flowPrincipal);
-        }else if (validarFormatoTelefono(body)) {
-            formulario[5] = body;
-        }else{
-            fallBack("Ingrese un telefono valido segun el formato");
-            await gotoFlow(flowAgendarConsulta);
         }
-        await flowDynamic("Datos consulta: \nFecha: " + formulario[0] + '\nHora: ' + formulario[1] + '\nMascota: ' + formulario[2] + '\nCliente: ' + formulario[3] + 
+        if (validarFormatoTelefono(body)) {
+            formulario[5] = body;
+            await flowDynamic("Datos consulta: \nFecha: " + formulario[0] + '\nHora: ' + formulario[1] + '\nMascota: ' + formulario[2] + '\nCliente: ' + formulario[3] + 
                 '\nRut: ' + formulario[4] + '\nTelefono: ' + formulario[5]);
                 const result = await agregarConsulta(formulario);
                 if (result == 2){
@@ -553,6 +569,9 @@ const flowAgendarConsulta = addKeyword(["asdasdasdasdasdasd"])
                         gotoFlow(flowAgendarConsulta)
                     );
                 }
+        }else{
+            fallBack("Ingrese un telefono valido segun el formato");
+        }
     }
   )
 

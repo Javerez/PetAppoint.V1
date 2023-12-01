@@ -2,10 +2,10 @@
   key: {
     remoteJid: '56942796002@s.whatsapp.net',
     fromMe: false,
-    id: '230D6F723AC89B4AD6DEE7711DE9DC04',
+    id: '3BAC6ABF6B6E89E07706CBC02F937B04',
     participant: undefined
   },
-  messageTimestamp: 1701403017,
+  messageTimestamp: 1701411066,
   pushName: 'María José🙂🌹💕🐱',
   broadcast: false,
   message: Message {
@@ -19,8 +19,8 @@
   from: '56942796002'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_72df53a3-4900-45fc-861d-2eb9de854ea9',
-  keyword: 'key_d6c34cd3-ed5f-49db-bd9b-060fac696d29',
+  ref: 'ans_38ac731e-18ce-4366-b881-eda86035969c',
+  keyword: 'key_dc4768ff-2cc1-4cfd-b8a9-b27016582d5b',
   answer: '🙌 Bienvenido IvetMascotas\n' +
     '¿En que le podemos ayudar?\n' +
     'Escriba el número de acuerdo a tu consulta\n' +
@@ -39,16 +39,16 @@
     keyword: {},
     callback: true
   },
-  refSerialize: 'b9c4ec4829fef026590dc6f9d1181bba'
+  refSerialize: '084130281335ff1bfdca6bfb472d2338'
 }
 [handleMsg]:  {
   key: {
     remoteJid: '56942796002@s.whatsapp.net',
     fromMe: false,
-    id: 'D0B12C05AB375B26E9CE8A05BD5AB667',
+    id: '7F13826521ADBE5D2B86B1FE75742FD0',
     participant: undefined
   },
-  messageTimestamp: 1701403019,
+  messageTimestamp: 1701411068,
   pushName: 'María José🙂🌹💕🐱',
   broadcast: false,
   message: Message {
@@ -65,30 +65,30 @@
   key: {
     remoteJid: '56942796002@s.whatsapp.net',
     fromMe: false,
-    id: 'E544EC307532E642FE23BEFB5E2BE1E4',
+    id: 'CAE115AF09219CF70CA2D50E0D49D3D1',
     participant: undefined
   },
-  messageTimestamp: 1701403029,
+  messageTimestamp: 1701411074,
   pushName: 'María José🙂🌹💕🐱',
   broadcast: false,
   message: Message {
-    conversation: '20.326.857-4',
+    conversation: '9.333.333-k',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2
     }
   },
-  body: '20.326.857-4',
+  body: '9.333.333-k',
   from: '56942796002'
 }
 [handleMsg]:  {
   key: {
     remoteJid: '56942796002@s.whatsapp.net',
     fromMe: false,
-    id: 'EA1247CBC43606660E279C8A0281D36F',
+    id: '0139CCA5A9719674AB43F24FA84BB434',
     participant: undefined
   },
-  messageTimestamp: 1701403034,
+  messageTimestamp: 1701411082,
   pushName: 'María José🙂🌹💕🐱',
   broadcast: false,
   message: Message {
@@ -105,19 +105,119 @@
   key: {
     remoteJid: '56942796002@s.whatsapp.net',
     fromMe: false,
-    id: 'C04989CA2638A7ED6B519612252D249E',
+    id: '77145E27DB01793515E3031A84D69F82',
     participant: undefined
   },
-  messageTimestamp: 1701403044,
+  messageTimestamp: 1701411090,
   pushName: 'María José🙂🌹💕🐱',
   broadcast: false,
   message: Message {
-    conversation: '20.326.857-4',
+    conversation: '9.333.333-K',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2
     }
   },
-  body: '20.326.857-4',
+  body: '9.333.333-K',
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: '3EC0869C12D38FF1512F2AEF2CDD73AE',
+    participant: undefined
+  },
+  messageTimestamp: 1701411094,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '2',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '2',
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: '87CFA6FF62DBF043A4B201D882170EE8',
+    participant: undefined
+  },
+  messageTimestamp: 1701411099,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '23333333',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '23333333',
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: '95848C56E088D7613B55422E4F1D23B5',
+    participant: undefined
+  },
+  messageTimestamp: 1701411107,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '9.333.333-k',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '9.333.333-k',
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: '6C97A3F66FC5CE7925AF1F77C78A394B',
+    participant: undefined
+  },
+  messageTimestamp: 1701411120,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '1',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '1',
+  from: '56942796002'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '56942796002@s.whatsapp.net',
+    fromMe: false,
+    id: '69FDC956272B4765B6648299CF1107DF',
+    participant: undefined
+  },
+  messageTimestamp: 1701411127,
+  pushName: 'María José🙂🌹💕🐱',
+  broadcast: false,
+  message: Message {
+    conversation: '3',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '3',
   from: '56942796002'
 }
