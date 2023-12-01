@@ -1,20 +1,31 @@
 <section>
-    <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+    <div class="px-4 py-5 px-md-5 container md-5 text-center text-lg-start">
         <div class="card py-5 px-md-5 text-center">
-            <h3>PetAppoint</h3>
-            <div class="card-body text-center">
-                <button class="btn btn-primary" routerLink="/calendario">Calendario</button>
-                <br/>
-                <button class="btn btn-primary" routerLink="/consultas">Consultas</button>
-                
-                <ng-container *ngIf="esAdmin()">
-                    <br/>
-                    <button class="btn btn-primary" routerLink="/registro-usuario">Registrar</button>
-                </ng-container>
-                <br/>
-                <button class="btn btn-primary" (click)="cerrarSesion()">Cerrar Sesion</button>
+            <h1>   
+                PetAppoint         
+                <!-- <img class="logo" src="FrontEnd\src\assets\images\PetAppoint-Logo.jpeg"> -->
+            </h1>
+                <div class="card-body text-center">
+                <mat-grid-list cols="2" rowHeight="100px">
+
+                    <mat-grid-tile class="calendario">
+                        <button mat-raised-button routerLink="/calendario">
+                           Calendario
+                        </button>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="consultas">
+                        <button mat-raised-button routerLink="/consultas">Consultas</button>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="registro"*ngIf="esAdmin()">
+                        <button mat-raised-button routerLink="/registro-usuario">Registrar</button>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="cerrarSesion">
+                        <button mat-raised-button (click)="cerrarSesion()">Cerrar Sesion</button>
+                    </mat-grid-tile>
+                </mat-grid-list>
             </div>
         </div>
-
     </div>
 </section>

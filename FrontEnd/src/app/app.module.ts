@@ -16,11 +16,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule} from '@angular/material/radio'; 
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table'; 
-
-
+import {MatGridListModule} from '@angular/material/grid-list';
 //Angular
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -77,6 +76,7 @@ import { ConfirmacionComponent } from './componentes/confirmacion/confirmacion.c
     MatPaginatorModule,
     MatTableModule,
     MatSlideToggleModule,
+    MatGridListModule,
   ],
   providers: [
     {

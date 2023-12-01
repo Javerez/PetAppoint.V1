@@ -10,6 +10,7 @@ import { UsuarioService } from 'src/app/services/usuario_service/usuario.service
 })
 export class InicioSesionComponent {
 
+  hide=true;
   formInicioSesion!: FormGroup;
   buttonClicked!: boolean;
   public captchaResolved : boolean = false;
@@ -26,7 +27,7 @@ export class InicioSesionComponent {
     this.buttonClicked=false;
     this.captchaResolved=false;
     
-    let formulario = {
+    this.formInicioSesion = this.formBuilder.group({
       email: ['', Validators.compose([
         Validators.required,
         Validators.email
@@ -35,17 +36,10 @@ export class InicioSesionComponent {
         Validators.required,
         Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)
       ])],
-      //recaptcha: ['',Validators.required]
-    }
-    this.formInicioSesion = this.formBuilder.group(formulario);
-    this.siteKey = "6LcCcJkmAAAAAM8lZ_jL7MZeSOI1iKd4exAu2wI1";
-
+    },{updateOn: 'submit'})
   }
-  checkCaptcha(captchaResponse : string) {    
-    this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
-  }
-  
   iniciarSesion() {
+    console.log(this.formInicioSesion.valid)
     if (this.formInicioSesion.status === 'VALID') {
       this.usuarioService.inicioSesionUsuario(this.formInicioSesion.value).subscribe(
         data => {

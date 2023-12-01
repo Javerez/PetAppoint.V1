@@ -6,6 +6,7 @@
 html,
 body {
     height: 100%;
+    background-image: url("/assets/images/depositphotos_134430528-stock-illustration-vector-pattern-seamless-of-background.jpg");
 }
 
 body {
@@ -28,12 +29,6 @@ body {
     display: flex;
 }
 
-.confirm-dialog-container #close-icon {
-    margin-left: auto;
-    order: 2;
-    font-weight: bolder;
-}
-
 .confirm-dialog-container #close-icon:hover {
     cursor: pointer;
 }
@@ -41,16 +36,16 @@ body {
 .confirm-dialog-container #no-button {
     height: 50px;
     width: 50%;
-    background-color: #fc7169;
-    color: white;
+    background-color: #f71900;;
+    color: black;
     border-radius: 0px;
 }
 
 .confirm-dialog-container #yes-button {
     height: 50px;
     width: 50%;
-    background-color: #b6bece;
-    color: white;
+    background-color: #00c100;
+    color: black;
     border-radius: 0px;
 }
 

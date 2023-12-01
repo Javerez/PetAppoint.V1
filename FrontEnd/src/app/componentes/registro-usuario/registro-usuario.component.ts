@@ -14,7 +14,8 @@ export class RegistroUsuarioComponent {
   public captchaResolved: boolean = false;
   public siteKey: any;
   error_id: any;
-
+  hide = true
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -24,8 +25,7 @@ export class RegistroUsuarioComponent {
   ngOnInit(): void {
     this.buttonClicked = false;
     this.captchaResolved = false;
-
-    let formulario = {
+    this.formRegistroUsuario = this.formBuilder.group({
       nombre: ['', Validators.compose([
         Validators.required,
         Validators.pattern(/^[a-zA-ZáéñóúüÁÉÑÓÚÜ -]*$/)
@@ -43,24 +43,19 @@ export class RegistroUsuarioComponent {
         Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/)
       ])],
       admin: [false, Validators.required]
-    }
-    this.formRegistroUsuario = this.formBuilder.group(formulario);
-    //this.siteKey = "6LcCcJkmAAAAAM8lZ_jL7MZeSOI1iKd4exAu2wI1";
+    });
 
   }
 
-  // checkCaptcha(captchaResponse: string) {
-  //   this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
-  // }
 
-  register() {
-
+  registrar() {
+    console.log(this.formRegistroUsuario.value)
     if (this.formRegistroUsuario.status === 'VALID') {
-      this.usuarioService.registroUsuario(this.formRegistroUsuario.value).subscribe(data => {
-        this.error_id = data.id;
-        console.log("id: " + data.id);
-        if (this.error_id == 1) this.router.navigate(['home']);
-      });
+     this.usuarioService.registroUsuario(this.formRegistroUsuario.value).subscribe(data => {
+       this.error_id = data.id;
+       console.log("id: " + data.id);
+       if (this.error_id == 1) this.router.navigate(['home']);
+     });
     }
   }
 }

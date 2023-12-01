@@ -13,69 +13,27 @@
                     Contraseña Incorrecta
                 </div>
             </div>
-            
+
             <!--FORMULARIO-->
-            <form #form="ngForm" [formGroup]="formInicioSesion" (ngSubmit)="iniciarSesion()"
-                class="formulario needs-validation px-5" novalidate>
-                <div class="form-group row">
-                    <div class="col-12">
-                        <label class="form-label">Correo Electrónico</label>
-                    </div>
-
-                    <div class="col-12">
-                        <input type="email" class="form-control" id="email" formControlName="email"
-                            placeholder="example@mail.com" required>
-                    </div>
-
-                    <div *ngIf="formInicioSesion.controls['email'].getError('required') && (formInicioSesion.controls['email'].touched || buttonClicked == true)"
-                        class="col-12 text-danger">
-                        El correo es requerido
-                    </div>
-
-                    <div *ngIf="formInicioSesion.controls['email'].getError('email') && formInicioSesion.controls['email'].touched"
-                        class="col-12 text-danger">
-                        El formato del correo no es correcto
-                    </div>
+            <form mat-dialog-content [name]="formInicioSesion" [formGroup]="formInicioSesion" class="formulario" (submit)="iniciarSesion()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese Email</mat-label>
+                    <input matInput formControlName="email" >
+                    <mat-error *ngIf="formInicioSesion.get('email')?.hasError('required')">El email es requerido</mat-error>
+                    <mat-error *ngIf="formInicioSesion.get('email')?.hasError('email')">El formato no es valido</mat-error>                        
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput formControlName="password"[type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="formInicioSesion.get('password')?.hasError('required')">La contraseña es requerida</mat-error>
+                    <mat-error *ngIf="formInicioSesion.get('password')?.hasError('pattern')">La contraseña es requerida</mat-error>
+                </mat-form-field>
+                <div class="col-4 col-md-4 button">
+                    <button type="submit" id="ingresar" mat-raised-button>Ingresar</button>
                 </div>
-
-                <br />
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <label class="form-label">Contraseña</label>
-                    </div>
-
-                    <div class="col-12">
-                        <input type="password" class="form-control" id="password" formControlName="password" required>
-                    </div>
-
-                    <div *ngIf="formInicioSesion.controls['password'].getError('required') && (formInicioSesion.controls['password'].touched || buttonClicked == true) "
-                        class="col text-danger">
-                        La contraseña es requerida
-                    </div>
-
-                    <div *ngIf="formInicioSesion.controls['password'].getError('pattern') && formInicioSesion.controls['password'].touched"
-                        class="col text-danger">
-                        El formato de la contraseña no es correcto
-                    </div>
-                </div>
-
-                <br />
-
-                <!-- <div class="form group row">
-                    <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha"
-                        (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
-                </div> [disabled]="!captchaResolved"-->
-
-                <br />
-
-                <div class="form-group row">
-                    <div class="col-4 col-md-4 btn-siguiente">
-                        <button  type="submit" class="btn btn-primary">Siguiente</button>
-                    </div>
-
-                </div>
-
             </form>
         </div>
     </div>

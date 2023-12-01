@@ -13,7 +13,7 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker disabled="false"></mat-datepicker>
         </mat-form-field>
-        <button mat-raised-button color="primary"(click)="limpiar($event)" id="clear">Limpiar</button>
+        <button mat-raised-button (click)="limpiar($event)" id="clear" color="primary">Limpiar</button>
       </div>
       
       <div class="mat-elevation-z8">
@@ -82,8 +82,10 @@
       
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
       </div>
+      <div class="botones">
+        <button mat-raised-button routerLink="/home" color="primary">Volver</button>
+        <button mat-raised-button id="agregar" color="primary" (click)="abrirDialog()">Agregar Consulta</button>    
+      </div>
     </div>
-    <button mat-raised-button routerLink="/home">Volver</button>
-    <button mat-raised-button color="primary" (click)="abrirDialog()">Agregar Consulta</button>
   </div>
 </section>

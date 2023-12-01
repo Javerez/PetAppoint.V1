@@ -1,9 +1,4 @@
 section {
-    background-image: url("/assets/images/depositphotos_134430528-stock-illustration-vector-pattern-seamless-of-background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,6 +21,10 @@ section {
 .consulta{
     background-color: aquamarine;
 }
-// ul{
-//     list-style: none;
-// }
+.botones{
+    text-align: end;
+    margin-top: 1vh;
+}
+#agregar{
+    margin-left: 1vh;
+}

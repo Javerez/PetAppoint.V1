@@ -1,9 +1,4 @@
 section {
-  background-image: url("/assets/images/depositphotos_134430528-stock-illustration-vector-pattern-seamless-of-background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
   height: 100vh;
   width: 100vw;
 }
@@ -11,7 +6,7 @@ section {
   display: flex;
   justify-content: center;
 }
-.btn{
+.volver{
   margin-right: 2vh;
   height: 6.5vh;
 }
@@ -25,7 +20,8 @@ b { /* used for event dates/times */
 }
 
 /*CSS DE LA DEMO BORRRAR LUEGO*/
+// #3f51b5
 
-.demo-app-main {
+.main {
   flex-grow: 1;
 }

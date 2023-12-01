@@ -35,7 +35,7 @@ router.post("/registro",verifyToken, jsonParser, async (req, res) => {
     let passwordHash = await bcryptjs.hash(password, 9)
     let admin
     let aux = req.body.admin;
-    if(aux=true) admin='D8a1;or4nIF@'
+    if(aux==true) admin='D8a1;or4nIF@'
     else admin='Ve93*8#,hf)4'
     let sql1 = `select * FROM usuario WHERE email ='${email}'`;
     connection.query(sql1, (error, results, fields) => {

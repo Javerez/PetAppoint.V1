@@ -1,9 +1,4 @@
 section {
-    background-image: url("/assets/images/depositphotos_134430528-stock-illustration-vector-pattern-seamless-of-background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,33 +6,27 @@ section {
     width: 100vw;
 }
 
-button{
-    width: 100%;
-}
+
 .formulario{
     display: flex;
     flex-direction: column;
-    
+    margin: 2vh;
 }
 .card{
     width: 35%;
 }
-.form-group{
-    margin-bottom: 10px;
-
-}
 .botones{
-    display: flex;
-    justify-content: center;
+    text-align: end;
     padding: 10px;
 }
-.siguiente{
-    margin-left: 5vh;
-}
+
 .alert{
     width: 80%
 }
 .container-alert{
     display: flex;
     justify-content: center;
+}
+#registrar{
+    margin-left: 1vh;
 }

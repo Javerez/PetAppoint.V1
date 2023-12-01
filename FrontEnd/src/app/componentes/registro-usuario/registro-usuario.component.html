@@ -11,119 +11,39 @@
             </div>
             
             <!--FORMULARIO-->
-            <form #form="ngForm" [formGroup]="formRegistroUsuario" (ngSubmit)="register()"
-                class="formulario needs-validation p-3 text-center" novalidate>
-                <div class="form-group row text-center">
-                    <div class="col-12">
-                        <label class="form-label">Nombre</label>
-                    </div>
-
-                    <div class="col-12">
-                        <input type="text" class="form-control" id="nombre" formControlName="nombre"
-                            placeholder="Juanito Ignacio" required>
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['nombre'].getError('required') && (formRegistroUsuario.controls['nombre'].touched || buttonClicked == true)"
-                        class="col-12 text-danger">
-                        El nombre es requerido
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['nombre'].getError('pattern') && formRegistroUsuario.controls['nombre'].touched"
-                        class="col-12 text-danger">
-                        El formato del nombre no es correcto
-                    </div>
-                </div>
-                <br />
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <label class="form-label">Apellido</label>
-                    </div>
-
-                    <div class="col-12">
-                        <input type="text" class="form-control" id="apellido" formControlName="apellido"
-                            placeholder="Arellano Gonzalez" required>
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['apellido'].getError('required') && (formRegistroUsuario.controls['apellido'].touched || buttonClicked == true)"
-                        class="col-12 text-danger">
-                        El apellido es requerido
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['apellido'].getError('pattern') && formRegistroUsuario.controls['apellido'].touched"
-                        class="col-12 text-danger">
-                        El formato del apellido no es correcto
-                    </div>
-                </div>
-                <br />
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <label class="form-label">Correo Electrónico</label>
-                    </div>
-
-                    <div class="col-12">
-                        <input type="email" class="form-control" id="email" formControlName="email"
-                            placeholder="example@mail.com" required>
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['email'].getError('required') && (formRegistroUsuario.controls['email'].touched || buttonClicked == true)"
-                        class="col-12 text-danger">
-                        El correo es requerido
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['email'].getError('email') && formRegistroUsuario.controls['email'].touched"
-                        class="col-12 text-danger">
-                        El formato del correo no es correcto
-                    </div>
-                </div>
-
-                <br />
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <label class="form-label">Contraseña</label>
-                    </div>
-
-                    <div class="col-12">
-                        <input type="password" class="form-control" id="password" formControlName="password"
-                            required>
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['password'].getError('required') && (formRegistroUsuario.controls['password'].touched || buttonClicked == true) "
-                        class="col text-danger">
-                        La contraseña es requerida
-                    </div>
-
-                    <div *ngIf="formRegistroUsuario.controls['password'].getError('pattern') && formRegistroUsuario.controls['password'].touched"
-                        class="col text-danger">
-                        El formato de la contraseña no es correcto
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-12">
-                        <mat-slide-toggle formControlName="admin">Administrador</mat-slide-toggle>
-                    </div>
-                </div>
-
-                <br />
-                <!-- <div class="form-group row">
-                    <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha"
-                        (success)="checkCaptcha($event)" class="col-12"></ngx-recaptcha2>
-                </div> [disabled]="!captchaResolved"-->
-
-                <br />
-
-                <!-- <div class="form-group row">
-                    
-                </div> -->
+            <form mat-dialog-content [name]="formRegistroUsuario" [formGroup]="formRegistroUsuario" class="formulario" (submit)="registrar()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese Nombre</mat-label>
+                    <input matInput formControlName="nombre" >
+                    <mat-error *ngIf="formRegistroUsuario.get('nombre')?.hasError('required')">El nombre es requerido</mat-error>
+                    <mat-error *ngIf="formRegistroUsuario.get('nombre')?.hasError('pattern')">El formato no es valido</mat-error>                        
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese Apellido</mat-label>
+                    <input matInput formControlName="apellido" >
+                    <mat-error *ngIf="formRegistroUsuario.get('apellido')?.hasError('required')">El apellido es requerido</mat-error>
+                    <mat-error *ngIf="formRegistroUsuario.get('apellido')?.hasError('pattern')">El formato no es valido</mat-error>                        
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese Email</mat-label>
+                    <input matInput formControlName="email" >
+                    <mat-error *ngIf="formRegistroUsuario.get('email')?.hasError('required')">El email es requerido</mat-error>
+                    <mat-error *ngIf="formRegistroUsuario.get('email')?.hasError('email')">El formato no es valido</mat-error>                        
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput formControlName="password"[type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-hint>Una mayuscula, un caracter especial, 3 numeros y letras</mat-hint>
+                    <mat-error *ngIf="formRegistroUsuario.get('password')?.hasError('required')">La contraseña es requerida</mat-error>
+                    <mat-error *ngIf="formRegistroUsuario.get('password')?.hasError('pattern')">El formato no es valido</mat-error>
+                </mat-form-field>
+                <mat-slide-toggle formControlName="admin">Administrador</mat-slide-toggle>
                 <div class="botones">
-                    <div class="col-4 volver">
-                        <button class="btn btn-primary" routerLink="/home">Atras</button>
-                    </div>
-                    <div class="col-4 col-md-4 siguiente">
-                        <button type="submit"class="btn btn-primary">Registrar</button>
-                    </div>
+                    <button mat-raised-button color="primary" routerLink="/home">Volver</button>
+                    <button type="submit" mat-raised-button id="registrar">Registrar</button>
                 </div>
             </form>
             
